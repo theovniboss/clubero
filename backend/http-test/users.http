@@ -9,12 +9,12 @@ POST http://localhost:3030/api/users
 Content-Type: application/json
 
 {
-	"email": "cluberoapp@gmail.com",
+	"email": "cluberoapp3@gmail.com",
 	"password": "uga@12buga",
 	"firstname": "Leonardo",
 	"lastname": "Gerasimenko",
 	"dateofbirth": "1981-04-22",
-	"identifyproviderid": "0000000-0000-0000-0000-000000000001"	
+	"identifyproviderid": "0000000-0000-0000-0000-000000000002"	
 }
 
 ### Update user by ID
