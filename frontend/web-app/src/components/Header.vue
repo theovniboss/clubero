@@ -1,0 +1,36 @@
+<template>
+	<header class="flex h-20 border-b border-gray-300">
+		<section class="min-w-3xs flex justify-center items-center border-r border-gray-300 p-5 ">
+			<h1><img src="/images/logo.svg" alt="Seu clube em suas mãos" class="h-10" /></h1>
+		</section>
+		<section class="flex justify-center items-center p-5 grow">
+
+			<section class="flex ml-auto" v-if="isAuthenticated">
+				<div class="h-10 v-10 rounded-full border-1 border-gray-300 p-2 bg-white mr-4 hover:bg-gray-50">
+					<font-awesome-icon icon="fa-regular fa-bell" class="h-6 w-6 text-gray-500"  />
+				</div>
+				<picture>
+					<img :src="user.picture" :alt="user.name" class="h-10 w-10 rounded-full border-gray-300 border-1" />
+				</picture>	
+
+			</section>
+
+		</section>
+	</header>
+
+</template>
+<script setup>
+	import { useAuth0 } from '@auth0/auth0-vue';
+
+
+	const { isAuthenticated, user, logout } = useAuth0();
+
+	const userLogout = () => {
+		logout({ logoutParams: { returnTo: window.location.origin } });
+	}
+
+
+
+
+
+</script>

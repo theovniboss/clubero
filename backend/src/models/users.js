@@ -10,6 +10,11 @@ const getUserById = async (id) => {
     return res.rows[0];
 }
 
+const getUserByIdentityProvider = async (identifyproviderid) => {
+	const res = await db.query('SELECT * FROM users WHERE identifyproviderid = $1', [identifyproviderid]);
+	return res.rows[0];
+}
+
 const insertUser = async (user) => {
     const { email, password, firstname, lastname, dateofbirth, identifyproviderid  } = user;
     const query = `
@@ -51,6 +56,7 @@ const deleteUser = async (id) => {
 export default { 
     getAllUsers,
     getUserById,
+	getUserByIdentityProvider,
     insertUser,
     updateUser,
     deleteUser
