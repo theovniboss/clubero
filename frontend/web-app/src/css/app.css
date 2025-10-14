@@ -54,7 +54,7 @@
 	--color-warning-800: #5d6d07;
 	--color-warning-900: #4e5c0b;
 	--color-warning-950: #293400;
-
+	/* RESET DEFAULT COLOR */
 	--color-red-*: initial;
 	--color-orange-*: initial;
 	--color-amber-*: initial;
@@ -76,26 +76,6 @@
 	--color-zinc-*: initial;
 	--color-neutral-*: initial;
 	--color-stone-*: initial;
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-	 
-
-	/* RESET DEFAULT COLOR */
-	
 
 }
 
