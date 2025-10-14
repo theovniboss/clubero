@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+ 	--font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	
+	--color-primary: #0066b3;
+	--color-primary-50: #f0f8ff;
+	--color-primary-100: #dff0ff;
+	--color-primary-200: #b9e1fe;
+	--color-primary-300: #7bcafe;
+	--color-primary-400: #34affc;
+	--color-primary-500: #0a96ed;
+	--color-primary-600: #0076cb;
+	--color-primary-700: #0066b3;
+	--color-primary-800: #055087;
+	--color-primary-900: #0a4270;
+	--color-primary-950: #072a4a;
+
+	--color-success: #85c441;
+	--color-success-50: #f4faeb;
+	--color-success-100: #e6f4d3;
+	--color-success-200: #ceeaac;
+	--color-success-300: #aedb7b;
+	--color-success-400: #85c441;
+	--color-success-500: #72ae34;
+	--color-success-600: #578b25;
+	--color-success-700: #446a21;
+	--color-success-800: #37551f;
+	--color-success-900: #31491e;
+	--color-success-950: #17270c;
+
+	--color-danger: #ff0066;
+	--color-danger-50: #ffeff3;
+	--color-danger-100: #ffe0e9;
+	--color-danger-200: #ffc6d8;
+	--color-danger-300: #ff97b8;
+	--color-danger-400: #ff5d93;
+	--color-danger-500: #ff2474;
+	--color-danger-600: #ff0066;
+	--color-danger-700: #d70056;
+	--color-danger-800: #b40051;
+	--color-danger-900: #99024b;
+	--color-danger-950: #570024;
+
+	--color-warning: #E8FF05;
+	--color-warning-50: #fffee4;
+	--color-warning-100: #ffffc4;
+	--color-warning-200: #fdff90;
+	--color-warning-300: #f5ff50;
+	--color-warning-400: #e8ff05;
+	--color-warning-500: #cbe600;
+	--color-warning-600: #9eb800;
+	--color-warning-700: #778b00;
+	--color-warning-800: #5d6d07;
+	--color-warning-900: #4e5c0b;
+	--color-warning-950: #293400;
+	/* RESET DEFAULT COLOR */
+	--color-red-*: initial;
+	--color-orange-*: initial;
+	--color-amber-*: initial;
+	--color-yellow-*: initial;
+	--color-lime-*: initial;
+	--color-green-*: initial;
+	--color-emerald-*: initial;
+	--color-teal-*: initial;	
+	--color-cyan-*: initial;
+	--color-sky-*: initial;
+	--color-blue-*: initial;
+	--color-indigo-*: initial;
+	--color-violet-*: initial;
+	--color-purple-*: initial;
+	--color-fuchsia-*: initial;
+	--color-pink-*: initial;
+	--color-rose-*: initial;
+	--color-slate-*: initial;
+	--color-zinc-*: initial;
+	--color-neutral-*: initial;
+	--color-stone-*: initial;
+
+}
+
+body {
+	@apply bg-gray-100 h-screen w-screen flex;
+}
