@@ -1,35 +1,24 @@
 import teamsModel from '../models/teams.js';
 
 const getAllTeams = async (request, response) => {
-    try {
-        const teams = await teamsModel.getAllTeams();
-        response.status(200).json(teams);
-    } catch (error) {
-        response.status(500).json({ error: `Internal Server Error:${error}` });
-    }
+ 
+	const teams = await teamsModel.getAllTeams();
+	response.status(200).json(teams);
+
 };
 const getTeamById = async (request, response) => { 
-    try {
-        const id = parseInt(request.params.id);
-        const team = await teamsModel.getTeamById(id);
-        if (team) {
-            response.status(200).json(team);
-        } else {
-            response.status(404).json();
-        }   
-    } catch (error) {
-        response.status(500).json({ error: `Internal Server Error:${error}` });
-    }   
+	const id = parseInt(request.params.id);
+	const team = await teamsModel.getTeamById(id);
+	if(team) 
+		response.status(200).json(team);
+
+	response.status(404).json();
 };
 
-const createTeam = async (request, response) => {    
-    try {
-        const newTeam = request.body;
-        const createdTeam = await teamsModel.insertTeam(newTeam);
-        response.status(201).json(createdTeam);
-    } catch (error) {
-        response.status(500).json({ error: `Internal Server Error:${error}` });
-    }
+const createTeam = async (request, response) => {  
+	const newTeam = request.body;
+	const createdTeam = await teamsModel.insertTeam(newTeam);
+	response.status(201).json(createdTeam);
 };
 
 const updateTeam = async (request, response) => {
