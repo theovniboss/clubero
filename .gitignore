@@ -28,6 +28,7 @@ coverage/
 # Temporary files
 tmp/
 temp/
+express.old/
 
 # OS generated files
 .DS_Store

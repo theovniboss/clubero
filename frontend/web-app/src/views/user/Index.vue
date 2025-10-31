@@ -57,6 +57,7 @@
 	const formUser = ref({
 		picture: null,
 		name: null,
+		email: null,
 		nickname: null, 
 		user_metadata: {
 			birthDate:null
