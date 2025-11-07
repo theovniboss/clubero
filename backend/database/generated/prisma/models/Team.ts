@@ -287,8 +287,9 @@ export type TeamWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Team"> | Date | string
   updatedBy?: Prisma.StringNullableFilter<"Team"> | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
-  sport?: Prisma.XOR<Prisma.SportScalarRelationFilter, Prisma.SportWhereInput>
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
+  sport?: Prisma.XOR<Prisma.SportScalarRelationFilter, Prisma.SportWhereInput>
+  teamUser?: Prisma.TeamUserListRelationFilter
 }
 
 export type TeamOrderByWithRelationInput = {
@@ -305,8 +306,9 @@ export type TeamOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  sport?: Prisma.SportOrderByWithRelationInput
   club?: Prisma.ClubOrderByWithRelationInput
+  sport?: Prisma.SportOrderByWithRelationInput
+  teamUser?: Prisma.TeamUserOrderByRelationAggregateInput
 }
 
 export type TeamWhereUniqueInput = Prisma.AtLeast<{
@@ -326,8 +328,9 @@ export type TeamWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Team"> | Date | string
   updatedBy?: Prisma.StringNullableFilter<"Team"> | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Team"> | Date | string | null
-  sport?: Prisma.XOR<Prisma.SportScalarRelationFilter, Prisma.SportWhereInput>
   club?: Prisma.XOR<Prisma.ClubScalarRelationFilter, Prisma.ClubWhereInput>
+  sport?: Prisma.XOR<Prisma.SportScalarRelationFilter, Prisma.SportWhereInput>
+  teamUser?: Prisma.TeamUserListRelationFilter
 }, "id">
 
 export type TeamOrderByWithAggregationInput = {
@@ -381,8 +384,9 @@ export type TeamCreateInput = {
   createdAt?: Date | string
   updatedBy?: string | null
   updatedAt?: Date | string | null
-  sport: Prisma.SportCreateNestedOneWithoutTeamsInput
   club: Prisma.ClubCreateNestedOneWithoutTeamsInput
+  sport: Prisma.SportCreateNestedOneWithoutTeamsInput
+  teamUser?: Prisma.TeamUserCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateInput = {
@@ -399,6 +403,7 @@ export type TeamUncheckedCreateInput = {
   createdAt?: Date | string
   updatedBy?: string | null
   updatedAt?: Date | string | null
+  teamUser?: Prisma.TeamUserUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUpdateInput = {
@@ -412,8 +417,9 @@ export type TeamUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sport?: Prisma.SportUpdateOneRequiredWithoutTeamsNestedInput
   club?: Prisma.ClubUpdateOneRequiredWithoutTeamsNestedInput
+  sport?: Prisma.SportUpdateOneRequiredWithoutTeamsNestedInput
+  teamUser?: Prisma.TeamUserUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateInput = {
@@ -430,6 +436,7 @@ export type TeamUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamUser?: Prisma.TeamUserUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamCreateManyInput = {
@@ -547,6 +554,11 @@ export type TeamSumOrderByAggregateInput = {
   sportId?: Prisma.SortOrder
 }
 
+export type TeamScalarRelationFilter = {
+  is?: Prisma.TeamWhereInput
+  isNot?: Prisma.TeamWhereInput
+}
+
 export type TeamCreateNestedManyWithoutClubInput = {
   create?: Prisma.XOR<Prisma.TeamCreateWithoutClubInput, Prisma.TeamUncheckedCreateWithoutClubInput> | Prisma.TeamCreateWithoutClubInput[] | Prisma.TeamUncheckedCreateWithoutClubInput[]
   connectOrCreate?: Prisma.TeamCreateOrConnectWithoutClubInput | Prisma.TeamCreateOrConnectWithoutClubInput[]
@@ -635,6 +647,20 @@ export type NullableEnumGenderFieldUpdateOperationsInput = {
   set?: $Enums.Gender | null
 }
 
+export type TeamCreateNestedOneWithoutTeamUserInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutTeamUserInput, Prisma.TeamUncheckedCreateWithoutTeamUserInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutTeamUserInput
+  connect?: Prisma.TeamWhereUniqueInput
+}
+
+export type TeamUpdateOneRequiredWithoutTeamUserNestedInput = {
+  create?: Prisma.XOR<Prisma.TeamCreateWithoutTeamUserInput, Prisma.TeamUncheckedCreateWithoutTeamUserInput>
+  connectOrCreate?: Prisma.TeamCreateOrConnectWithoutTeamUserInput
+  upsert?: Prisma.TeamUpsertWithoutTeamUserInput
+  connect?: Prisma.TeamWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TeamUpdateToOneWithWhereWithoutTeamUserInput, Prisma.TeamUpdateWithoutTeamUserInput>, Prisma.TeamUncheckedUpdateWithoutTeamUserInput>
+}
+
 export type TeamCreateWithoutClubInput = {
   name: string
   description?: string | null
@@ -647,6 +673,7 @@ export type TeamCreateWithoutClubInput = {
   updatedBy?: string | null
   updatedAt?: Date | string | null
   sport: Prisma.SportCreateNestedOneWithoutTeamsInput
+  teamUser?: Prisma.TeamUserCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateWithoutClubInput = {
@@ -662,6 +689,7 @@ export type TeamUncheckedCreateWithoutClubInput = {
   createdAt?: Date | string
   updatedBy?: string | null
   updatedAt?: Date | string | null
+  teamUser?: Prisma.TeamUserUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamCreateOrConnectWithoutClubInput = {
@@ -720,6 +748,7 @@ export type TeamCreateWithoutSportInput = {
   updatedBy?: string | null
   updatedAt?: Date | string | null
   club: Prisma.ClubCreateNestedOneWithoutTeamsInput
+  teamUser?: Prisma.TeamUserCreateNestedManyWithoutTeamInput
 }
 
 export type TeamUncheckedCreateWithoutSportInput = {
@@ -735,6 +764,7 @@ export type TeamUncheckedCreateWithoutSportInput = {
   createdAt?: Date | string
   updatedBy?: string | null
   updatedAt?: Date | string | null
+  teamUser?: Prisma.TeamUserUncheckedCreateNestedManyWithoutTeamInput
 }
 
 export type TeamCreateOrConnectWithoutSportInput = {
@@ -760,6 +790,84 @@ export type TeamUpdateWithWhereUniqueWithoutSportInput = {
 export type TeamUpdateManyWithWhereWithoutSportInput = {
   where: Prisma.TeamScalarWhereInput
   data: Prisma.XOR<Prisma.TeamUpdateManyMutationInput, Prisma.TeamUncheckedUpdateManyWithoutSportInput>
+}
+
+export type TeamCreateWithoutTeamUserInput = {
+  name: string
+  description?: string | null
+  image?: string | null
+  gender?: $Enums.Gender | null
+  category?: string | null
+  active?: boolean
+  createdBy: string
+  createdAt?: Date | string
+  updatedBy?: string | null
+  updatedAt?: Date | string | null
+  club: Prisma.ClubCreateNestedOneWithoutTeamsInput
+  sport: Prisma.SportCreateNestedOneWithoutTeamsInput
+}
+
+export type TeamUncheckedCreateWithoutTeamUserInput = {
+  id?: number
+  clubId: number
+  sportId: number
+  name: string
+  description?: string | null
+  image?: string | null
+  gender?: $Enums.Gender | null
+  category?: string | null
+  active?: boolean
+  createdBy: string
+  createdAt?: Date | string
+  updatedBy?: string | null
+  updatedAt?: Date | string | null
+}
+
+export type TeamCreateOrConnectWithoutTeamUserInput = {
+  where: Prisma.TeamWhereUniqueInput
+  create: Prisma.XOR<Prisma.TeamCreateWithoutTeamUserInput, Prisma.TeamUncheckedCreateWithoutTeamUserInput>
+}
+
+export type TeamUpsertWithoutTeamUserInput = {
+  update: Prisma.XOR<Prisma.TeamUpdateWithoutTeamUserInput, Prisma.TeamUncheckedUpdateWithoutTeamUserInput>
+  create: Prisma.XOR<Prisma.TeamCreateWithoutTeamUserInput, Prisma.TeamUncheckedCreateWithoutTeamUserInput>
+  where?: Prisma.TeamWhereInput
+}
+
+export type TeamUpdateToOneWithWhereWithoutTeamUserInput = {
+  where?: Prisma.TeamWhereInput
+  data: Prisma.XOR<Prisma.TeamUpdateWithoutTeamUserInput, Prisma.TeamUncheckedUpdateWithoutTeamUserInput>
+}
+
+export type TeamUpdateWithoutTeamUserInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  club?: Prisma.ClubUpdateOneRequiredWithoutTeamsNestedInput
+  sport?: Prisma.SportUpdateOneRequiredWithoutTeamsNestedInput
+}
+
+export type TeamUncheckedUpdateWithoutTeamUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  clubId?: Prisma.IntFieldUpdateOperationsInput | number
+  sportId?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type TeamCreateManyClubInput = {
@@ -789,6 +897,7 @@ export type TeamUpdateWithoutClubInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sport?: Prisma.SportUpdateOneRequiredWithoutTeamsNestedInput
+  teamUser?: Prisma.TeamUserUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateWithoutClubInput = {
@@ -804,6 +913,7 @@ export type TeamUncheckedUpdateWithoutClubInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamUser?: Prisma.TeamUserUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateManyWithoutClubInput = {
@@ -848,6 +958,7 @@ export type TeamUpdateWithoutSportInput = {
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   club?: Prisma.ClubUpdateOneRequiredWithoutTeamsNestedInput
+  teamUser?: Prisma.TeamUserUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateWithoutSportInput = {
@@ -863,6 +974,7 @@ export type TeamUncheckedUpdateWithoutSportInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  teamUser?: Prisma.TeamUserUncheckedUpdateManyWithoutTeamNestedInput
 }
 
 export type TeamUncheckedUpdateManyWithoutSportInput = {
@@ -881,6 +993,35 @@ export type TeamUncheckedUpdateManyWithoutSportInput = {
 }
 
 
+/**
+ * Count Type TeamCountOutputType
+ */
+
+export type TeamCountOutputType = {
+  teamUser: number
+}
+
+export type TeamCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  teamUser?: boolean | TeamCountOutputTypeCountTeamUserArgs
+}
+
+/**
+ * TeamCountOutputType without action
+ */
+export type TeamCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TeamCountOutputType
+   */
+  select?: Prisma.TeamCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TeamCountOutputType without action
+ */
+export type TeamCountOutputTypeCountTeamUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamUserWhereInput
+}
+
 
 export type TeamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -896,8 +1037,10 @@ export type TeamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedBy?: boolean
   updatedAt?: boolean
-  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
+  teamUser?: boolean | Prisma.Team$teamUserArgs<ExtArgs>
+  _count?: boolean | Prisma.TeamCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["team"]>
 
 export type TeamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -914,8 +1057,8 @@ export type TeamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedBy?: boolean
   updatedAt?: boolean
-  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["team"]>
 
 export type TeamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -932,8 +1075,8 @@ export type TeamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedBy?: boolean
   updatedAt?: boolean
-  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["team"]>
 
 export type TeamSelectScalar = {
@@ -954,23 +1097,26 @@ export type TeamSelectScalar = {
 
 export type TeamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clubId" | "sportId" | "name" | "description" | "image" | "gender" | "category" | "active" | "createdBy" | "createdAt" | "updatedBy" | "updatedAt", ExtArgs["result"]["team"]>
 export type TeamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
+  teamUser?: boolean | Prisma.Team$teamUserArgs<ExtArgs>
+  _count?: boolean | Prisma.TeamCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TeamIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
 }
 export type TeamIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
   club?: boolean | Prisma.ClubDefaultArgs<ExtArgs>
+  sport?: boolean | Prisma.SportDefaultArgs<ExtArgs>
 }
 
 export type $TeamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Team"
   objects: {
-    sport: Prisma.$SportPayload<ExtArgs>
     club: Prisma.$ClubPayload<ExtArgs>
+    sport: Prisma.$SportPayload<ExtArgs>
+    teamUser: Prisma.$TeamUserPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1380,8 +1526,9 @@ readonly fields: TeamFieldRefs;
  */
 export interface Prisma__TeamClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sport<T extends Prisma.SportDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SportDefaultArgs<ExtArgs>>): Prisma.Prisma__SportClient<runtime.Types.Result.GetResult<Prisma.$SportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   club<T extends Prisma.ClubDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClubDefaultArgs<ExtArgs>>): Prisma.Prisma__ClubClient<runtime.Types.Result.GetResult<Prisma.$ClubPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  sport<T extends Prisma.SportDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SportDefaultArgs<ExtArgs>>): Prisma.Prisma__SportClient<runtime.Types.Result.GetResult<Prisma.$SportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  teamUser<T extends Prisma.Team$teamUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Team$teamUserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1815,6 +1962,30 @@ export type TeamDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Teams to delete.
    */
   limit?: number
+}
+
+/**
+ * Team.teamUser
+ */
+export type Team$teamUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TeamUser
+   */
+  select?: Prisma.TeamUserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TeamUser
+   */
+  omit?: Prisma.TeamUserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TeamUserInclude<ExtArgs> | null
+  where?: Prisma.TeamUserWhereInput
+  orderBy?: Prisma.TeamUserOrderByWithRelationInput | Prisma.TeamUserOrderByWithRelationInput[]
+  cursor?: Prisma.TeamUserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TeamUserScalarFieldEnum | Prisma.TeamUserScalarFieldEnum[]
 }
 
 /**

@@ -1,7 +1,7 @@
 generator client {
     provider = "prisma-client"
     output   = "../database/generated/prisma"
-	runtime = "bun"
+    runtime  = "bun"
 }
 
 datasource db {
@@ -10,19 +10,19 @@ datasource db {
 }
 
 model Club {
-    id          Int       	@id @default(autoincrement())
+    id          Int       @id @default(autoincrement())
     name        String
     description String?
     image       String?
     country     String
     state       String
     city        String
-	founded     DateTime	
-    active      Boolean   	@default(false)
+    founded     DateTime
+    active      Boolean   @default(false)
     createdBy   String
-    createdAt   DateTime  	@default(now())
+    createdAt   DateTime  @default(now())
     updatedBy   String?
-    updatedAt   DateTime? 	@updatedAt
+    updatedAt   DateTime? @updatedAt
     teams       Team[]
 }
 
@@ -34,7 +34,7 @@ model Sport {
 }
 
 model Team {
-    id          Int       @id @default(autoincrement())
+    id          Int        @id @default(autoincrement())
     clubId      Int
     sportId     Int
     name        String
@@ -42,14 +42,25 @@ model Team {
     image       String?
     gender      Gender?
     category    String?
-    active      Boolean   @default(false)
+    active      Boolean    @default(false)
     createdBy   String
-    createdAt   DateTime  @default(now())
+    createdAt   DateTime   @default(now())
     updatedBy   String?
-    updatedAt   DateTime? @updatedAt
-    sport       Sport     @relation(fields: [sportId], references: [id])
-    club        Club      @relation(fields: [clubId], references: [id])
+    updatedAt   DateTime?  @updatedAt
+    club        Club       @relation(fields: [clubId], references: [id])
+    sport       Sport      @relation(fields: [sportId], references: [id])
+    teamUser    TeamUser[]
 }
+
+model TeamUser {
+    userId String
+    teamId Int
+    active Boolean
+    team   Team    @relation(fields: [teamId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@id([userId, teamId])
+}
+
 
 enum Gender {
     MALE

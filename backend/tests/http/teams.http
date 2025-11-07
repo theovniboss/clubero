@@ -1,18 +1,52 @@
-### Teams API tests
-@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYxOTM0NTc0LCJleHAiOjE3NjIwMjA5NzQsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpjbHViIiwicmVhZDpjbHViIiwidXBkYXRlOmNsdWIiXX0.pOTP5SP_uONzm_e2aORhQ0CQiEDUD8sBP9zww95cFWeNwg_1eVT4XOCSEWKoark-yTzAPwXoYsqMKb8BqVC8djrVVHw6OypcDdigyVprA2xHACe7mILlMDz9SN6H32b4H_2HMX6_06zP9AsdTOan7pHJzx6ygCEi8_Z-ICo6iECAkKDCnsOR93MWT3HOx3qyEAJoYhlybWcETL9JJuZSc6GyhSVY79414PQ3YToDe1zSgfnxSSqtW2ypG4kWIAwahKmSgXikUMfDG0o0GJwsAWPiQIUznsnEk_rVWQdq1uRvF-EJ-3iZw7IS8RWFd_lOAZGk7rG3CO2-ITMaF1C9Rg
 
-# Get all teams (unfiltered)
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYyNDYyMzczLCJleHAiOjE3NjI1NDg3NzMsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.l5m53shgrafrg3VeJsJBFS3liPfNCb8V50an2ktn5crsJk9Ahrm0CDR7cJmH76fkG3vwAW2cVPA3T4XJkR9WegyxtBXIJjtgNh58rAzKkKWY1kFGqXFLcI71a0rDo3tFcbJZjDiDeHPlMrj-Z4Sj_i3t2x2Asp3FJ-Cu8Qoq1qFC4QiorCKSBbRJDGYiNl41hnZB1Ff1B7PhVKNjc9ngRXpE5VcLcv6K17RENk9_MmgUszXCwiSPrtNBBSqkjTwZf1sQkytikOOGbFtBozaG6sACxvHxber5Hmg3cjL74Z0yWugZGscbgQDQbfexHAVuEG8q5j3mqhcAcjpHbs6YBg
+
+
+
+### Teams API tests
 GET http://localhost:3030/api/teams/all
 Authorization: Bearer {{token}}
 
 ###
-# Get teams by current user
-GET http://localhost:303/api/teams
+# Get teams CreateBy current user
+GET http://localhost:3030/api/teams
 Authorization: Bearer {{token}}
 
 ###
+# Get teams by current user
+GET http://localhost:3030/api/user/teams
+Authorization: Bearer {{token}}
+
+
+###
 # Get a team by id
-GET http://localhost:3030/api/team/1
+GET http://localhost:3030/api/team/2
+Authorization: Bearer {{token}}
+
+###
+# Invite Users 
+POST  http://localhost:3030/api/team/2/invite
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+	"users": [
+	{
+		"name":"Anderson Peter",
+		"nickname":"Peter",
+		"email":"ltesta+peter@gmail.com"
+	}]
+}	
+
+
+
+
+
+
+###
+# Get a team by id with users
+GET http://localhost:3030/api/team/2/users
 Authorization: Bearer {{token}}
 
 ###
@@ -23,10 +57,10 @@ Authorization: Bearer {{token}}
 
 {
 	"clubId": 1,
-	"sportId": 2,
-	"name": "Adulto Masculino",
-	"gender": "MALE",
-	"category": "Adulto",
+	"sportId": 1,
+	"name": "Feminino infantil",
+	"gender": "FEMALE",
+	"category": "Infantil",
 	"active": true	
 }
 
@@ -49,5 +83,5 @@ Authorization: Bearer {{token}}
 
 ###
 # Delete a team
-DELETE http://localhost:3030/api/team/1
+DELETE http://localhost:3030/api/team/4
 Authorization: Bearer {{token}}

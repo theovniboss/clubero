@@ -10,4 +10,5 @@
 export type * from './models/Club.ts'
 export type * from './models/Sport.ts'
 export type * from './models/Team.ts'
+export type * from './models/TeamUser.ts'
 export type * from './commonInputTypes.ts'

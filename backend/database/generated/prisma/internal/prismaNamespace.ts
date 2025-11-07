@@ -391,7 +391,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Club: 'Club',
   Sport: 'Sport',
-  Team: 'Team'
+  Team: 'Team',
+  TeamUser: 'TeamUser'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "club" | "sport" | "team"
+    modelProps: "club" | "sport" | "team" | "teamUser"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -633,6 +634,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TeamUser: {
+      payload: Prisma.$TeamUserPayload<ExtArgs>
+      fields: Prisma.TeamUserFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamUserFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamUserFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamUserFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamUserFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>
+        }
+        findMany: {
+          args: Prisma.TeamUserFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>[]
+        }
+        create: {
+          args: Prisma.TeamUserCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>
+        }
+        createMany: {
+          args: Prisma.TeamUserCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamUserCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamUserDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>
+        }
+        update: {
+          args: Prisma.TeamUserUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamUserDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamUserUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamUserUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamUserUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamUserPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamUserAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamUser>
+        }
+        groupBy: {
+          args: Prisma.TeamUserGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamUserGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamUserCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamUserCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -714,6 +789,15 @@ export const TeamScalarFieldEnum = {
 } as const
 
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
+
+
+export const TeamUserScalarFieldEnum = {
+  userId: 'userId',
+  teamId: 'teamId',
+  active: 'active'
+} as const
+
+export type TeamUserScalarFieldEnum = (typeof TeamUserScalarFieldEnum)[keyof typeof TeamUserScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -869,6 +953,7 @@ export type GlobalOmitConfig = {
   club?: Prisma.ClubOmit
   sport?: Prisma.SportOmit
   team?: Prisma.TeamOmit
+  teamUser?: Prisma.TeamUserOmit
 }
 
 /* Types for Logging */

@@ -6,11 +6,14 @@ import errorHandler from "./middlewares/errorhandler.middleware";
 
 const app = express();
 
-app.use(express.json());
-app.use(cors());
 
+app.use(cors());
+app.use(express.json({
+	strict:false
+}));
 
 app.use('/api', jwtCheck, router);
+
 app.use(errorHandler);
 
 export default app;

@@ -1,5 +1,4 @@
 import type { Request, Response } from "express";
-import userUtils from "../utils/user.utils";
 import sportService from "../services/sport.service";
 
 const getAllSports = async (request: Request, response: Response) => {

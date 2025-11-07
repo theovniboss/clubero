@@ -58,3 +58,8 @@ export type Sport = Prisma.SportModel
  * 
  */
 export type Team = Prisma.TeamModel
+/**
+ * Model TeamUser
+ * 
+ */
+export type TeamUser = Prisma.TeamUserModel
