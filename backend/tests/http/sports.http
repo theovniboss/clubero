@@ -1,0 +1,34 @@
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYyNDM1MzM5LCJleHAiOjE3NjI1MjE3MzksInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpjbHViIiwicmVhZDpjbHViIiwidXBkYXRlOmNsdWIiXX0.QfXDipjhf26zu9dvqllJI2zDd-E7jpHlG1o7YL8WpHND5-8HLSGT8k83knJjuC3CylIRZ8j67cKCcsJDx2RwnSAguVDThgVllYAHSEzQ_4LZ06lk4nof5v-ZUEowJaGwQhuwPmMGgghk7SYhdPolpxdK03gc57a1Ybg2PgeiSZiv9-au1WITvGze579hzZMLzdIOZi8gcFoP8CXWFUlYYNCuCRwqmdUCi-GTLkEE0yron2fMUNcJQoLjMo40hbak_u7wOzz21Y6e5KbSh8TzrtqkAeu3rikZKnsQAyZQYMrUZUKWTw_9yg-Nu76YIkU77nsKhTTIbfMPZ2DpIGLRYg
+
+
+
+GET http://localhost:3030/api/sports/all
+Authorization: Bearer {{token}}
+
+### Get sport by ID
+GET http://localhost:3030/api/sport/1
+Authorization: Bearer {{token}}
+
+### Create a new sport
+POST http://localhost:3030/api/sport
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Flag Football",
+    "image": "http://example.com/soccer.png"
+}
+
+### Update sport by ID
+PUT http://localhost:3030/api/sport/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Flag Football",
+    "image": "http://example.com/flagfootball.png"
+}
+
+### Delete sport by ID
+DELETE http://localhost:3030/api/sport/3
+Authorization: Bearer {{token}}

@@ -3,7 +3,7 @@
 		<Header />
 		<main class="flex grow">
 			<Menu />
-			<section class="flex p-5"><RouterView /></section>
+			<section class="p-5 w-full"><RouterView /></section>
 		</main>
 		<footer class="border-t border-gray-300 flex h-20 p-5 col-span-2 mt-auto">footer</footer>
 	</main>

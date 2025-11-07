@@ -1,35 +1,27 @@
 import { createApp } from "vue";
-import { createAuth0 } from "@auth0/auth0-vue";
 import { createPinia } from 'pinia'
 import { router } from "./router/index.js";
 
 import "./css/app.css";
 import App from "./App.vue";
+import { auth0 } from "./utils/auth0.js";
+import { vClickOutside } from "./utils/directives.js";
+import { FontAwesomeIcon } from './utils/fontawesome.js';
 
+import { useUserStore } from './store/user.store.js';
 
-/* add fontawesome core */
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-/* import all the icons in Free Solid, Free Regular, and Brands styles */
-//import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-//import { fab } from '@fortawesome/free-brands-svg-icons'
-
-library.add(far)
 
 const app = createApp(App);
-app.use(router);
 app.use(createPinia());
-app.use(
-    createAuth0({
-        domain: import.meta.env.VITE_AUTH0_DOMAIN,
-        clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
-        authorizationParams: {
-            redirect_uri: window.location.origin,
-        },
-    })
-);
-
+app.use(router);
+app.use(auth0);
 app.component("font-awesome-icon", FontAwesomeIcon)
-
+app.directive("click-outside", vClickOutside);
 app.mount("#app");
+
+const userStore = useUserStore();
+await userStore.init(auth0);
+
+
+
+

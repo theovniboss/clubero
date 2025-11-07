@@ -1,28 +1,28 @@
 {
-  "name": "Clubero.Backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
-  },
-  "keywords": [],
-  "author": "Leonardo Testa",
-  "license": "MIT",
-  "type": "module",
-  "dependencies": {
-    "compression": "^1.8.1",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "pg": "^8.16.3"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.37.0",
-    "@eslint/json": "^0.13.2",
-    "eslint": "^9.37.0",
-    "globals": "^16.4.0",
-    "nodemon": "^3.1.10"
-  }
+	"name": "clubero.backend",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "bun --watch server.ts",
+		"debug": "bun --inspect=localhost:6499/clubero server.ts"
+	},
+	"devDependencies": {
+		"@types/auth0": "^3.3.11",
+		"@types/bun": "latest",
+		"@types/express": "^5.0.5",
+		"@prisma/client": "^6.18.0",
+		"@types/cors": "^2.8.19"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"auth0": "^5.0.0",
+		"cors": "^2.8.5",
+		"express": "^5.1.0",
+		"express-oauth2-jwt-bearer": "^1.7.1",
+		"jose": "^6.1.0",
+		"prisma": "^6.18.0"
+	}
 }

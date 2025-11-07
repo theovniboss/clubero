@@ -1,0 +1,46 @@
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYyNDY1NjkxLCJleHAiOjE3NjI1NTIwOTEsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.ZztBLbP5EkZNrKl15mJcMd_ZW7b-EmgYYbnhtz1kejS-gUy_AvAFVDQc5f_jzFf6B74X7JsEvO2UatHNGAK3QuFzuptwkf1sTMqpE5PnYg5MHPN5n3wWWlNuhZo523Y7mmVez-xJp97gwKKoJIyRn5xU515nJKEH7QUwfnifbzDyEn8hFKI7yM7ks6ISPimvYtknH8Qxp8NFcffeUuqVzfWfeTbmId6kgsYFHC2P363Ehwn9mB0MYIoKQWofNcbVBfrW-mc1i92V4BVFA7E-E1BpPh9nZAYjGbCW7z2aboXzMMR4P6EsBk43xt6z7UV35u1iTDiwDEPY4c9RF8qxjA
+
+### Get User Logged
+GET http://localhost:3030/api/user
+Authorization: Bearer {{ token }}
+Content-Type: application/json
+
+
+
+### Update user by ID
+PUT http://localhost:3030/api/user
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ 
+	"name": "Leonardo Testa",
+	"nickname": "TheOvniBoss" ,
+	"user_metadata": { 
+		"birthDate": "1981-04-22"
+	}
+}
+
+### Create a new user
+POST http://localhost:3030/api/user
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ 
+	"name": "Leonardo Testa",
+	"nickname": "TheOvniBoss" ,
+	"email": "leonardo@testa.com"
+}
+
+
+### Change password
+POST http://localhost:3030/api/user/password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"email": "ltesta@gmail.com"
+}
+
+
+
+
