@@ -392,7 +392,9 @@ export const ModelName = {
   Club: 'Club',
   Sport: 'Sport',
   Team: 'Team',
-  TeamUser: 'TeamUser'
+  TeamUser: 'TeamUser',
+  CashFlowCategory: 'CashFlowCategory',
+  CashFlow: 'CashFlow'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +410,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "club" | "sport" | "team" | "teamUser"
+    modelProps: "club" | "sport" | "team" | "teamUser" | "cashFlowCategory" | "cashFlow"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -708,6 +710,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CashFlowCategory: {
+      payload: Prisma.$CashFlowCategoryPayload<ExtArgs>
+      fields: Prisma.CashFlowCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CashFlowCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CashFlowCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.CashFlowCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CashFlowCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.CashFlowCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.CashFlowCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.CashFlowCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CashFlowCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.CashFlowCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>
+        }
+        update: {
+          args: Prisma.CashFlowCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.CashFlowCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CashFlowCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CashFlowCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.CashFlowCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.CashFlowCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCashFlowCategory>
+        }
+        groupBy: {
+          args: Prisma.CashFlowCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CashFlowCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CashFlowCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CashFlowCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    CashFlow: {
+      payload: Prisma.$CashFlowPayload<ExtArgs>
+      fields: Prisma.CashFlowFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CashFlowFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CashFlowFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>
+        }
+        findFirst: {
+          args: Prisma.CashFlowFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CashFlowFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>
+        }
+        findMany: {
+          args: Prisma.CashFlowFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>[]
+        }
+        create: {
+          args: Prisma.CashFlowCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>
+        }
+        createMany: {
+          args: Prisma.CashFlowCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CashFlowCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>[]
+        }
+        delete: {
+          args: Prisma.CashFlowDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>
+        }
+        update: {
+          args: Prisma.CashFlowUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>
+        }
+        deleteMany: {
+          args: Prisma.CashFlowDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CashFlowUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CashFlowUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>[]
+        }
+        upsert: {
+          args: Prisma.CashFlowUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CashFlowPayload>
+        }
+        aggregate: {
+          args: Prisma.CashFlowAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCashFlow>
+        }
+        groupBy: {
+          args: Prisma.CashFlowGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CashFlowGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CashFlowCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CashFlowCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -800,6 +950,38 @@ export const TeamUserScalarFieldEnum = {
 export type TeamUserScalarFieldEnum = (typeof TeamUserScalarFieldEnum)[keyof typeof TeamUserScalarFieldEnum]
 
 
+export const CashFlowCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  clubId: 'clubId',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CashFlowCategoryScalarFieldEnum = (typeof CashFlowCategoryScalarFieldEnum)[keyof typeof CashFlowCategoryScalarFieldEnum]
+
+
+export const CashFlowScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  amount: 'amount',
+  type: 'type',
+  occurredAt: 'occurredAt',
+  clubId: 'clubId',
+  teamId: 'teamId',
+  categoryId: 'categoryId',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CashFlowScalarFieldEnum = (typeof CashFlowScalarFieldEnum)[keyof typeof CashFlowScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -854,6 +1036,20 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Gender'
  */
 export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+/**
+ * Reference to a field of type 'CashFlowType'
+ */
+export type EnumCashFlowTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CashFlowType'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
     
 
 
@@ -954,6 +1150,8 @@ export type GlobalOmitConfig = {
   sport?: Prisma.SportOmit
   team?: Prisma.TeamOmit
   teamUser?: Prisma.TeamUserOmit
+  cashFlowCategory?: Prisma.CashFlowCategoryOmit
+  cashFlow?: Prisma.CashFlowOmit
 }
 
 /* Types for Logging */

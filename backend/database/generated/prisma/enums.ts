@@ -15,3 +15,11 @@ export const Gender = {
 } as const
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const CashFlowType = {
+  CREDIT: 'CREDIT',
+  DEBIT: 'DEBIT'
+} as const
+
+export type CashFlowType = (typeof CashFlowType)[keyof typeof CashFlowType]

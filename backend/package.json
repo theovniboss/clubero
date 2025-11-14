@@ -23,6 +23,6 @@
 		"express": "^5.1.0",
 		"express-oauth2-jwt-bearer": "^1.7.1",
 		"jose": "^6.1.0",
-		"prisma": "^6.18.0"
+		"prisma": "^6.19.0"
 	}
 }

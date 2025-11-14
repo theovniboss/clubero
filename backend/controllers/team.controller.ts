@@ -91,7 +91,7 @@ const inviteTeamUsers = async (request: Request, response: Response) => {
 		if(!users || !users.length) return response.status(400).json();
 		const usersCreated = [];
 
-
+		const userClientId = userUtils.getUserClientId(request);
 		for (let i = 0; i < users.length; i++) {
 			const user = users[i] as User;
 			const created = await userService.createUser(user);
@@ -100,7 +100,7 @@ const inviteTeamUsers = async (request: Request, response: Response) => {
 			const teamUser = await teamService.addTeamUser(teamId, created.user_id);
 			if(!teamUser) return response.status(404).json();
 
-			const invite = await userService.changePasswordUser(created.email);
+			const invite = await userService.changePasswordUser(created.email, userClientId);
 			if(!invite) return response.status(404).json();
 
 			usersCreated.push(created);

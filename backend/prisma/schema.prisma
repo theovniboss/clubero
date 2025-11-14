@@ -24,6 +24,8 @@ model Club {
     updatedBy   String?
     updatedAt   DateTime? @updatedAt
     teams       Team[]
+    categories  CashFlowCategory[]
+    cashFlows   CashFlow[]
 }
 
 model Sport {
@@ -50,6 +52,7 @@ model Team {
     club        Club       @relation(fields: [clubId], references: [id])
     sport       Sport      @relation(fields: [sportId], references: [id])
     teamUser    TeamUser[]
+    cashFlows   CashFlow[]
 }
 
 model TeamUser {
@@ -61,9 +64,46 @@ model TeamUser {
     @@id([userId, teamId])
 }
 
+model CashFlowCategory {
+    id        Int          @id @default(autoincrement())
+    name      String
+    type      CashFlowType
+    clubId    Int? // Optional: if NULL, it's a global category
+    club      Club?        @relation(fields: [clubId], references: [id])
+    createdBy String
+    createdAt DateTime     @default(now())
+    updatedBy String?
+    updatedAt DateTime?    @updatedAt
+    cashFlows CashFlow[]
+
+    @@unique([clubId, name, type])
+}
+
+model CashFlow {
+    id          BigInt               @id @default(autoincrement())
+    description String
+    amount      Int
+    type        CashFlowType
+    occurredAt  DateTime
+    clubId      Int
+    club        Club              @relation(fields: [clubId], references: [id])
+    teamId      Int?
+    team        Team?             @relation(fields: [teamId], references: [id])
+    categoryId  Int?
+    category    CashFlowCategory? @relation(fields: [categoryId], references: [id])
+    createdBy   String
+    createdAt   DateTime          @default(now())
+    updatedBy   String?
+    updatedAt   DateTime?         @updatedAt
+}
 
 enum Gender {
     MALE
     FEMALE
     MIXED
+}
+
+enum CashFlowType {
+    CREDIT
+    DEBIT
 }

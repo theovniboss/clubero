@@ -51,7 +51,9 @@ export const ModelName = {
   Club: 'Club',
   Sport: 'Sport',
   Team: 'Team',
-  TeamUser: 'TeamUser'
+  TeamUser: 'TeamUser',
+  CashFlowCategory: 'CashFlowCategory',
+  CashFlow: 'CashFlow'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -121,6 +123,38 @@ export const TeamUserScalarFieldEnum = {
 } as const
 
 export type TeamUserScalarFieldEnum = (typeof TeamUserScalarFieldEnum)[keyof typeof TeamUserScalarFieldEnum]
+
+
+export const CashFlowCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  clubId: 'clubId',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CashFlowCategoryScalarFieldEnum = (typeof CashFlowCategoryScalarFieldEnum)[keyof typeof CashFlowCategoryScalarFieldEnum]
+
+
+export const CashFlowScalarFieldEnum = {
+  id: 'id',
+  description: 'description',
+  amount: 'amount',
+  type: 'type',
+  occurredAt: 'occurredAt',
+  clubId: 'clubId',
+  teamId: 'teamId',
+  categoryId: 'categoryId',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedBy: 'updatedBy',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CashFlowScalarFieldEnum = (typeof CashFlowScalarFieldEnum)[keyof typeof CashFlowScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -41,7 +41,9 @@ const changePasswordUser = async (request: Request, response: Response) => {
 	const {email} = request.body;
 	if (!email) return response.status(400).json();
 
-	const data = await userService.changePasswordUser(email);
+	const userClientId = userUtils.getUserClientId(request);
+
+	const data = await userService.changePasswordUser(email, userClientId);
 	if (!data) return response.status(404).json();
 
 	return response.status(200).json(data);

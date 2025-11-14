@@ -54,6 +54,7 @@
 	const isLogged = computed(() => useUserStore().isLogged);
 	const isLoading = computed(() => useUserStore().isLoading.value);
 
+
 	// METHODS
 	const toggleUserBox = () => {
 		showUserBox.value = !showUserBox.value;

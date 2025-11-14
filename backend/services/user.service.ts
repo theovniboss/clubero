@@ -4,7 +4,8 @@ import type{ User } from './../models/user.model'
 const management =  new ManagementClient({
 	domain: Bun.env.AUTH0_CLUBERO_DOMAIN || '',
 	clientId:Bun.env.AUTH0_CLUBERO_M2M_CLIENT_ID || '',
-	clientSecret: Bun.env.AUTH0_CLUBERO_M2M_CLIENT_SECRET || ''
+	clientSecret: Bun.env.AUTH0_CLUBERO_M2M_CLIENT_SECRET || '',
+
 });
 
 const authentication = new AuthenticationClient({
@@ -38,8 +39,6 @@ const getUsersById = async (users: string[], page: number = 0, perPage: number =
 
 const createUser = async (user: User) => {
 	const dynamicPass = await Bun.password.hash(Bun.randomUUIDv7(), { algorithm: "bcrypt" });
-
-
 	return await management.users.create({
 		connection: Bun.env.AUTH0_CLUBERO_CONNECTION || '',
 		email: user.email,
@@ -51,11 +50,21 @@ const createUser = async (user: User) => {
 	})
 }
 
-const changePasswordUser = async (email: string) => {
+const changePasswordUser = async (email: string, userClientId: string) => {
+
+
+	// return await management.tickets.changePassword({
+	// 		user_id: userId,
+	// 		client_id: userClientId			
+	// })
 	return await authentication.database.changePassword({
+		email: email,
+		client_id: userClientId, 
 		connection: Bun.env.AUTH0_CLUBERO_CONNECTION || '',
-		email: email
+	
 	})
+
+
 
 }
 

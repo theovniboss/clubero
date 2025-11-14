@@ -36,3 +36,13 @@ export type Team = Prisma.TeamModel
  * 
  */
 export type TeamUser = Prisma.TeamUserModel
+/**
+ * Model CashFlowCategory
+ * 
+ */
+export type CashFlowCategory = Prisma.CashFlowCategoryModel
+/**
+ * Model CashFlow
+ * 
+ */
+export type CashFlow = Prisma.CashFlowModel

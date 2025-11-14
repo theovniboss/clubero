@@ -38,19 +38,26 @@
 						<span>Cancelar</span>
 					</button>
 				</li>
+				
 			</ul>
+			
 
 
 		</div>
 
 
-
 	</div>
+	
+<p class="w-[600px] break-all">
+			@token={{ token }}
+			</p>
+			
 
 </template>
 <script setup>
 	import { onMounted, ref } from 'vue';
 	import servUser from '../../services/user.js'
+	import { useUserStore } from '../../store/user.store.js';
 
 	const activatedEdit = ref(false); 
 
@@ -65,6 +72,7 @@
 
 	onMounted(()=>{
 		loadUser();
+		getToken();
 	});
 
 	const loadUser = () =>{
@@ -72,6 +80,15 @@
 			const data = response.data;
 			parseFormUserData(data);
 		})
+	}
+
+	const token = ref('');
+	
+	const getToken = () => {
+		const userStore = useUserStore();
+		userStore.getAccessToken().then(x=>{
+			token.value = x;
+		});
 	}
 
 	const parseFormUserData = (data) => {

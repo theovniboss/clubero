@@ -1,4 +1,5 @@
-@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYyNDY1NjkxLCJleHAiOjE3NjI1NTIwOTEsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.ZztBLbP5EkZNrKl15mJcMd_ZW7b-EmgYYbnhtz1kejS-gUy_AvAFVDQc5f_jzFf6B74X7JsEvO2UatHNGAK3QuFzuptwkf1sTMqpE5PnYg5MHPN5n3wWWlNuhZo523Y7mmVez-xJp97gwKKoJIyRn5xU515nJKEH7QUwfnifbzDyEn8hFKI7yM7ks6ISPimvYtknH8Qxp8NFcffeUuqVzfWfeTbmId6kgsYFHC2P363Ehwn9mB0MYIoKQWofNcbVBfrW-mc1i92V4BVFA7E-E1BpPh9nZAYjGbCW7z2aboXzMMR4P6EsBk43xt6z7UV35u1iTDiwDEPY4c9RF8qxjA
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYyOTU4MjQ3LCJleHAiOjE3NjMwNDQ2NDcsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.pXN4FF5HmcMVWhfaWvM8IcLR27uZbI2i8VQ4kFJX5t0bOM7TFC5B_ntKBtE00HRe9socmaByluAcgZ88WUH2T4RZGMW16XcDg_vHUOFUu77fbhep2qLvsWub2OOtJWtb9ycKifC9eYaOQeH1dgdQ5ItLGpjig4fcI9zZXRYl1IU4Qg9NyTfW90PsVf2uRxfv2-188TnqHOI99_lO48yJ9o6YmtnZZzVKDk5ZK6suUVgo3kRkfBEdzjhoYs1bU5nEbOJhKRjlDzCEXakc1K1hA4Pf6vrLCcXK3Xbv88i6PjmFMGbLPKMW91x1D54zW3Lnxzyt7zq9oMn9zXpmDPzzIQ
+
 
 ### Get User Logged
 GET http://localhost:3030/api/user
@@ -38,9 +39,35 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-	"email": "ltesta@gmail.com"
+	"email": "ltesta+peter@gmail.com"
 }
 
 
 
+
+### DIFY
+@apikey=app-EkIywsJaVZ0UYEud93PoflTJ
+POST https://api.dify.ai/v1/chat-messages
+Authorization: Bearer {{apikey}}
+Content-Type: application/json
+
+{
+  "inputs": {},
+  "query": "Me fale quais as 10 maiores cidades do Brasil em população",
+  "response_mode": "streaming",
+  "conversation_id": "sosego-001",
+  "user": "ltesta@gmail.com"
+}
+
+### DIFY Get Messages
+GET https://api.dify.ai/v1/conversations?user=abc-123
+Authorization: Bearer {{apikey}}
+Content-Type: application/json
+
+
+
+### DIFY Get Messages
+GET https://api.dify.ai/v1/messages?user=abc-123&conversation_id=a66061fa-b3e7-44b1-ad4e-61972a1da98b
+Authorization: Bearer {{apikey}}
+Content-Type: application/json
 
