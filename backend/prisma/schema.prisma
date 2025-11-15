@@ -26,6 +26,7 @@ model Club {
     teams       Team[]
     categories  CashFlowCategory[]
     cashFlows   CashFlow[]
+    events      Event[]
 }
 
 model Sport {
@@ -53,6 +54,7 @@ model Team {
     sport       Sport      @relation(fields: [sportId], references: [id])
     teamUser    TeamUser[]
     cashFlows   CashFlow[]
+    events      Event[]
 }
 
 model TeamUser {
@@ -75,26 +77,62 @@ model CashFlowCategory {
     updatedBy String?
     updatedAt DateTime?    @updatedAt
     cashFlows CashFlow[]
-
-    @@unique([clubId, name, type])
 }
 
 model CashFlow {
-    id          BigInt               @id @default(autoincrement())
+    id          Int           @id @default(autoincrement())
     description String
     amount      Int
-    type        CashFlowType
     occurredAt  DateTime
     clubId      Int
     club        Club              @relation(fields: [clubId], references: [id])
     teamId      Int?
     team        Team?             @relation(fields: [teamId], references: [id])
-    categoryId  Int?
-    category    CashFlowCategory? @relation(fields: [categoryId], references: [id])
+    categoryId  Int
+    category    CashFlowCategory @relation(fields: [categoryId], references: [id])
     createdBy   String
     createdAt   DateTime          @default(now())
     updatedBy   String?
     updatedAt   DateTime?         @updatedAt
+}
+
+model Event {
+    id          Int       @id @default(autoincrement())
+    title       String
+    description String?
+    start       DateTime
+    end         DateTime
+    location    String?
+    type        EventType @default(OTHER)
+    createdBy   String
+    createdAt   DateTime  @default(now())
+    updatedBy   String?
+    updatedAt   DateTime? @updatedAt
+    recurrenceId      String?   // Common ID for all events in a series (e.g., a UUID)
+    recurrenceRule    String?   // Stores the recurrence rule (e.g., RRULE string from iCal)
+
+    clubId      Int
+    club        Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+    // Um evento pode ser de um time específico ou do clube em geral (teamId opcional)
+    teamId      Int?
+    team        Team?     @relation(fields: [teamId], references: [id], onDelete: SetNull)
+
+    participants EventParticipant[]
+
+    @@index([recurrenceId])
+    @@index([clubId, start, end])
+}
+
+model EventParticipant {
+    eventId   Int
+    event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    userId    String
+    status    EventConfirmationStatus @default(MAYBE)
+    checkedIn Boolean                 @default(false)
+    updatedAt DateTime                @updatedAt
+
+    @@id([eventId, userId])
 }
 
 enum Gender {
@@ -106,4 +144,19 @@ enum Gender {
 enum CashFlowType {
     CREDIT
     DEBIT
+}
+
+enum EventType {
+    TRAINING // Treino
+    MATCH    // Jogo/Partida
+    MEETING  // Reunião
+    SOCIAL   // Evento Social
+    OTHER    // Outro
+}
+
+
+enum EventConfirmationStatus {
+    GOING
+    NOT_GOING
+    MAYBE
 }

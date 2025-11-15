@@ -1,0 +1,71 @@
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYzMTM5NzAzLCJleHAiOjE3NjMyMjYxMDMsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.kstbjTRjaNtFII_utQ1BtNqqSFdF3tuIgiphtWeQvg_hwEAyTHjsDEW5TnLgWI1rhAr08udsiYv8k8HZ2VRNQcRd7qDcarUCIJq7IJsnIUdT3FvlKqqYT9d430kxZY-LKJk8ugJhhWeJkOS1Zyhbr_HAHBJUI_B_3EsMdmdM9sPZA5FQ7NPI6j0xsOWo7LsczPkZYeRCs2AG7jpTmx255S3APSzCDWEulaH48E9Jy_J9YjZTMZsivKzqEeOSAck5Pwu0-eik1GtNbOi8zeKsiSA90L9_mwHrgHZubuZbTZPcWXJPFZxptQXSVvWjpX42TctmNsdPbrTvbuC_bQ-axQ
+@baseUrl = http://localhost:3030/api
+
+###
+# @name getCategories
+GET {{baseUrl}}/cashflow/categories/club/1
+Authorization: Bearer {{token}}
+
+###
+# @name createCategory
+POST {{baseUrl}}/cashflow/category
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Entrada",
+    "type": "CREDIT"
+}
+
+###
+# @name updateCategory
+PUT {{baseUrl}}/cashflow/category/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Mensalidade",
+    "type": "CREDIT"
+}
+
+###
+# @name deleteCategory
+DELETE {{baseUrl}}/cashflow/category/5
+Authorization: Bearer {{token}}
+
+###
+
+###
+# @name getCashFlows
+GET {{baseUrl}}/cashflow/club/1
+Authorization: Bearer {{token}}
+
+###
+# @name createCashFlow
+POST {{baseUrl}}/cashflow
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "description": "Pagamento de conta de luz",
+    "amount": 15050,
+    "occurredAt": "2024-07-26T00:00:00Z",
+    "clubId": 1,
+	"categoryId": 1
+}
+
+###
+# @name updateCashFlow
+PUT {{baseUrl}}/cashflow/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "description": "Pagamento de conta de água",
+    "amount": 8000
+}
+
+###
+# @name deleteCashFlow
+DELETE {{baseUrl}}/cashflow/1
+Authorization: Bearer {{token}}
