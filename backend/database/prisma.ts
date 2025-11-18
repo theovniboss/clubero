@@ -1,8 +1,13 @@
-import { PrismaClient } from "./generated/prisma/client";
+import { PrismaClient as clientSQL } from "./generated/sqlite/client";
+import { PrismaClient as clientMongo } from "./generated/mongodb/client";
 
-let prisma = new PrismaClient();
+const sqliteConn = new clientSQL();
+const mongoConn = new clientMongo();
 
-export default prisma;
+export {
+	sqliteConn,
+	mongoConn
+}
 
 
 

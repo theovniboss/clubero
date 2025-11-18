@@ -1,0 +1,81 @@
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYzNDA5NDk3LCJleHAiOjE3NjM0OTU4OTcsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.IbnB48azyBqC0wYiR0Qx6r4CvRsGZF_Uz4dqIj0I5xlNvwFMI0-kpbODzAnBT3u9uall1V_IX5uGE1O6w7Rid2yBgs4ecqjpnQU0uTyxC3aGHbZclcvbyXN_xqt5l0o-QW8k16PcJGnBsrm5_JZab4RgJ3dU71i3f-DC6KkBGdMGqvxLZeF3rweyRsJKTKU1H0wdXvtfFrRfF6dyFn6uzd0P_pm86eWSPiVB__IU3ALs_6BgcT-eYf519cylArjk0lkXOrFJXE26qreG33ReSuOqlWdaNWY6nPlAEaQFmSqs5BOtk2afEogjgv92kIvQ09BQ86YuqI9lnU5LbuVtDQ
+@baseUrl = http://localhost:3030/api
+
+### Get all events for a club
+GET {{baseUrl}}/club/1/events
+Authorization: Bearer {{token}}
+
+### Get all events for a team in a club
+GET {{baseUrl}}/club/1/events?teamId=1
+Authorization: Bearer {{token}}
+
+
+### Get event by ID
+GET {{baseUrl}}/event/1
+Authorization: Bearer {{token}}
+
+### Create a new Event
+POST {{baseUrl}}/event
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Reunião de menbris",
+    "description": "Reunião para falar sobre como será 2026",
+    "start": "2025-12-14T18:00:00Z",
+    "end": "2025-12-14T20:00:00Z",
+    "location": "Casa",
+    "type": "SOCIAL",
+    "clubId": 1
+}
+
+### Update event by ID
+PUT {{baseUrl}}/event/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Reunião de menbros"
+}
+
+### Delete event by ID
+DELETE {{baseUrl}}/event/4
+Authorization: Bearer {{token}}
+
+### Listar todos os participantes de um evento específico
+GET {{baseUrl}}/event/1/participants
+Authorization: Bearer {{token}}
+
+
+### Adicionar um ou mais participantes a um evento
+POST {{baseUrl}}/event/1/participants
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "participants": [
+		{"userId":"auth0|653488429b0572863890e12f"}
+    ]
+}
+
+### // Atualizar o status de um participante (o usuário logado atualiza o seu próprio status)
+PUT {{baseUrl}}/event/1/participants/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "status": "GOING"
+}
+
+
+### Remover um ou mais participantes de um evento
+DELETE {{baseUrl}}/event/1/participants
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "participants": [
+        {"userId":"auth0|653488429b0572863890e12e"},
+       	{"userId":"auth0|653488429b0572863890e12f"}
+    ]
+}

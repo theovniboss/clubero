@@ -1,8 +1,8 @@
-import prisma from '../database/prisma'
-import type { CashFlow, CashFlowCategory } from '../database/generated/prisma/client';
+import { sqliteConn } from '../database/prisma'
+import type { CashFlow, CashFlowCategory } from '../database/generated/sqlite/client';
 
 const getCashFlowCategories = async (clubId?: number) => {
-	return await prisma.cashFlowCategory.findMany({
+	return await sqliteConn.cashFlowCategory.findMany({
 		where: {
 			OR: [
 				{clubId: clubId},
@@ -13,13 +13,13 @@ const getCashFlowCategories = async (clubId?: number) => {
 };
 
 const createCashFlowCategory = async (category: CashFlowCategory) => {
-    return await prisma.cashFlowCategory.create({
+    return await sqliteConn.cashFlowCategory.create({
         data: category
     });
 }
 
 const updateCashFlowCategory = async (id: number, category: CashFlowCategory) => {
-    return await prisma.cashFlowCategory.update({
+    return await sqliteConn.cashFlowCategory.update({
 		data: category,
         where: {
             id: id
@@ -29,7 +29,7 @@ const updateCashFlowCategory = async (id: number, category: CashFlowCategory) =>
 }
 
 const deleteCashFlowCategory = async (id: number) => {
-    return await prisma.cashFlowCategory.delete({
+    return await sqliteConn.cashFlowCategory.delete({
         where: {
             id: id
         }
@@ -37,32 +37,32 @@ const deleteCashFlowCategory = async (id: number) => {
 }
 
 const getCashFlows = async (clubId: number) => {
-    return await prisma.cashFlow.findMany({
+    return await sqliteConn.cashFlow.findMany({
         where: { clubId: clubId }
     });
 };
 
 const getCashFlow = async (id: number) => {
-    return await prisma.cashFlow.findUnique({
+    return await sqliteConn.cashFlow.findUnique({
         where: { id: id }
     });
 };
 
 const createCashFlow = async (cashFlow: CashFlow) => {
-    return await prisma.cashFlow.create({
+    return await sqliteConn.cashFlow.create({
         data: cashFlow
     });
 };
 
 const updateCashFlow = async (id: number, cashFlow: CashFlow) => {
-    return await prisma.cashFlow.update({
+    return await sqliteConn.cashFlow.update({
         data: cashFlow,
         where: { id: id }
     });
 };
 
 const deleteCashFlow = async (id: number) => {
-    return await prisma.cashFlow.delete({
+    return await sqliteConn.cashFlow.delete({
         where: { id: id }
     });
 };
