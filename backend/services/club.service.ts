@@ -49,6 +49,19 @@ const deleteClub = async (id:number, createdBy:string) =>{
 	});
 }
 
+const isUserInClub = async (userId: string, clubId: number): Promise<boolean> => {
+    const teamCount = await sqliteConn.teamUser.count({
+        where: {
+            userId: userId,
+            active: true,
+            team: {
+                clubId: clubId,
+            },
+        },
+    });
+    return teamCount > 0;
+};
+
 
 
 export default {
@@ -57,5 +70,6 @@ export default {
 	getClub,
 	createClub,
 	updateClub,
-	deleteClub
+	deleteClub,
+	isUserInClub
 }

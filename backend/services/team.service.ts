@@ -74,6 +74,15 @@ const addTeamUser = async(id: number, userId: string) => {
 
 }
 
+
+const isUserInTeam = async (userId: string, teamId: number): Promise<boolean> => {
+    const teamMembership = await sqliteConn.teamUser.findUnique({
+        where: { userId_teamId: { userId, teamId }, active: true },
+    });
+    return !!teamMembership;
+};
+
+
 export default {
 	getAllTeams,
 	getTeams,
@@ -82,5 +91,6 @@ export default {
 	updateTeam,
 	deleteTeam,
 	getTeamsByUser,
-	addTeamUser
+	addTeamUser,
+	isUserInTeam
 };

@@ -16,10 +16,10 @@ model ChatMessage {
     createdAt DateTime @default(now())
     // IDs para relacionar com os dados no banco SQL
 	clubId    Int
-    teamId    Int?     // Opcional: nulo para mensagens do chat global do clube
+    teamId    Int?   
     userId    String
-    userName  String   // Nome do usuário (desnormalizado para performance)
-    // Índice composto para otimizar buscas por clube/time
+    userName  String   
+
     @@index([clubId, teamId, createdAt])
 }
 

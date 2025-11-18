@@ -5,6 +5,8 @@ import teamRouter from "./team.router";
 import sportRouter from "./sport.router";
 import cashFlowRouter from "./cashFlow.router";
 import eventRouter from "./event.router";
+import chatRouter from "./chat.router";
+
 
 const router = express.Router();
 
@@ -14,6 +16,7 @@ router.use(teamRouter);
 router.use(sportRouter);
 router.use(cashFlowRouter);
 router.use(eventRouter);
+router.use(chatRouter);
 
 
 
