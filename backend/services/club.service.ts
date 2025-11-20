@@ -5,11 +5,33 @@ const getAllClubs = async () =>{
 	return await sqliteConn.club.findMany();
 }
 
-const getClubs = async (createdBy:string) => {
+const getClubs = async (userId:string) => {
 	return await sqliteConn.club.findMany(
 		{
 			where:{
-				createdBy: createdBy
+				OR: [ 
+				{createdBy: userId},
+				{
+					teams:{
+						some:{
+							teamUser:{
+								some:{
+									userId: userId,
+									active: true
+								}
+							}
+						}
+					}
+				}]
+			},
+			include: {
+				teams: {
+					where:{
+						teamUser: {
+							some: { userId: userId, active: true }
+						}
+					}
+				},
 			}
 		}
 	);
@@ -50,16 +72,31 @@ const deleteClub = async (id:number, createdBy:string) =>{
 }
 
 const isUserInClub = async (userId: string, clubId: number): Promise<boolean> => {
-    const teamCount = await sqliteConn.teamUser.count({
-        where: {
-            userId: userId,
-            active: true,
-            team: {
-                clubId: clubId,
-            },
-        },
-    });
-    return teamCount > 0;
+	const teamCount = await sqliteConn.club.findFirst(
+		{
+			where:{
+				AND: [
+					{id: clubId}
+				],
+				OR: [ 
+				{createdBy: userId},
+				{
+					teams:{
+						some:{
+							teamUser:{
+								some:{
+									userId: userId,
+									active: true
+								}
+							}
+						}
+					}
+				}]
+			},
+		}
+	);
+
+    return !!teamCount;
 };
 
 

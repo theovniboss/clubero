@@ -5,6 +5,10 @@
 			<font-awesome-icon icon="fa-solid fa-house" class="mr-2" />
 			<span>Início</span>
 		</router-link>
+			<router-link to="/club" class="menu-item">
+			<font-awesome-icon icon="fa-solid fa-ranking-star" class="mr-2"/>
+			<span>Meu Clube</span>
+		</router-link>
 		</nav>
 
 	</aside>

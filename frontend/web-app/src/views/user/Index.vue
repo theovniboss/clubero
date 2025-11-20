@@ -10,7 +10,7 @@
 			<ul class="grid grid-cols-3 gap-x-6 gap-y-6 w-full">
 				<li class="flex grow flex-col group">
 					<label for="formUser.name" class="text-gray-500 text-sm group-focus-within:text-primary">Nome</label>
-					<input :class="{'input':activatedEdit}" v-model="formUser.name" :readonly="!activatedEdit" :disabled="!activatedEdit" id="formUser.name" />
+					<input :class="{'input':activatedEdit, 'skeleton': isLoading}" v-model="formUser.name" :readonly="!activatedEdit" :disabled="!activatedEdit" id="formUser.name" />
 				</li>
 				<li class="flex flex-col group">
 					<label for="formUser.email" class="text-gray-500 text-sm group-focus-within:text-primary">E-mail</label>
@@ -49,8 +49,8 @@
 	</div>
 	
 <p class="w-[600px] break-all">
-			@token={{ token }}
-			</p>
+	@token={{ token }}
+</p>
 			
 
 </template>
@@ -60,6 +60,8 @@
 	import { useUserStore } from '../../store/user.store.js';
 
 	const activatedEdit = ref(false); 
+	const isLoading = ref(false);
+
 
 	const formUser = ref({
 		picture: null,
@@ -76,9 +78,14 @@
 	});
 
 	const loadUser = () =>{
+		isLoading.value = true;
 		servUser.getUser().then(response=>{
 			const data = response.data;
 			parseFormUserData(data);
+			isLoading.value = false;
+		}, error=>{
+			console.error(error);
+			isLoading.value = false;
 		})
 	}
 

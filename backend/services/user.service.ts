@@ -21,7 +21,11 @@ const updateUser = async (id: string, dataToUpdate: User) => {
 const getUser = async (id: string) => {
 	return await management.users.get(id);
 };
-
+const getUserByEmail = async (email: string) => {
+	return await management.users.listUsersByEmail({
+		email: email
+	});
+};
 
 const getUsersById = async (users: string[], page: number = 0, perPage: number = 50) => {
 
@@ -75,5 +79,6 @@ export default {
 	getUser,
 	getUsersById,
 	createUser,
-	changePasswordUser 
+	changePasswordUser,
+	getUserByEmail
 }

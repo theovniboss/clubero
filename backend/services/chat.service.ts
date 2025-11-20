@@ -1,5 +1,5 @@
 import { mongoConn } from '../database/prisma';
-import type { ChatMessage }from '../database/generated/mongodb/client';
+import type { ChatMessage }from '../models/chat.model';
 
 
 const createMessage = async (message: ChatMessage) => {

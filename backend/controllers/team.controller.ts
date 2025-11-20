@@ -94,6 +94,15 @@ const inviteTeamUsers = async (request: Request, response: Response) => {
 		const userClientId = userUtils.getUserClientId(request);
 		for (let i = 0; i < users.length; i++) {
 			const user = users[i] as User;
+			const existUser = await userService.getUserByEmail(user.email);
+			console.log(existUser);
+			if (existUser[0]) {
+				const teamUser = await teamService.addTeamUser(teamId, existUser[0].user_id ?? '');
+				if(!teamUser) return response.status(404).json();
+
+				usersCreated.push(existUser[0]);
+				continue;
+			}
 			const created = await userService.createUser(user);
 			if(!created || !created.user_id || !created.email) return response.status(404).json();
 

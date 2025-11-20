@@ -13,14 +13,15 @@ console.log("🔥 Starting WebSocket server for chat...");
 
 
 const server = Bun.serve<WebSocketData>({ 
-    port: 3001, // Porta separada para o chat
+    port: Bun.env.SOCKET_SERVER_PORT, // Porta separada para o chat
     async fetch(req, server) {
         const url = new URL(req.url);
 
         // Extrai parâmetros da URL: ws://.../?clubId=1&teamId=2&userId=...&userName=...
-        const clubId = parseInt(url.searchParams.get("clubId") || '0', 10);
+        const clubId = parseInt(url.searchParams.get("clubId") as string, 10);
         const teamIdParam = url.searchParams.get("teamId");
-        const teamId = teamIdParam ? parseInt(teamIdParam, 10) : null;
+        const teamId = teamIdParam ? parseInt(teamIdParam as string, 10) : null;
+		console.log(clubId, teamId);
         const userId = url.searchParams.get("userId") || '';
         const userName = url.searchParams.get("userName") || '';
 
@@ -53,11 +54,11 @@ const server = Bun.serve<WebSocketData>({
             ws.subscribe(room); // Bun.js facilita o pub/sub!
         },
 
-        async message(ws, message) {
+        message(ws, message) {
+			console.log(message);
             const { room, clubId, teamId, userId, userName } = ws.data;
             const content = message.toString();
-			const messageData = {
-				id: randomUUIDv7(),
+			const messageData = {			
 				createdAt: new Date(),
 				content: content,
 				clubId: clubId,
@@ -68,10 +69,13 @@ const server = Bun.serve<WebSocketData>({
 			
             try {
                 // 1. Salva a mensagem no MongoDB
-                const savedMessage = await chatController.createMessage(messageData);
+				chatController.createMessage(messageData).then(message => {
+					// 2. Transmite a mensagem para todos na sala (incluindo quem enviou)
+                	server.publish(room, JSON.stringify(message));
+				});
+				
 
-                // 2. Transmite a mensagem para todos na sala (incluindo quem enviou)
-                server.publish(room, JSON.stringify(savedMessage));
+                
 
             } catch (error) {
                 console.error(`[WS] Error processing message for room ${room}:`, error);

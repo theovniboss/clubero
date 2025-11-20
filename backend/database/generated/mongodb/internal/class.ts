@@ -57,8 +57,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../../database/generated/mongodb\"\n  runtime  = \"bun\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"MONGODB_URL\")\n}\n\nmodel ChatMessage {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  content   String\n  createdAt DateTime @default(now())\n  // IDs para relacionar com os dados no banco SQL\n  clubId    Int\n  teamId    Int? // Opcional: nulo para mensagens do chat global do clube\n  userId    String\n  userName  String // Nome do usuário (desnormalizado para performance)\n\n  // Índice composto para otimizar buscas por clube/time\n  @@index([clubId, teamId, createdAt])\n}\n",
-  "inlineSchemaHash": "de8c436f6fbcf63c0934b05b296aaa933dbd8e34b1bb90142b5cd039e562bf92",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../../database/generated/mongodb\"\n  runtime  = \"bun\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"MONGODB_URL\")\n}\n\nmodel ChatMessage {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  content   String\n  createdAt DateTime @default(now())\n  // IDs para relacionar com os dados no banco SQL\n  clubId    Int\n  teamId    Int?\n  userId    String\n  userName  String\n\n  @@index([clubId, teamId, createdAt])\n}\n",
+  "inlineSchemaHash": "e87b283de5409b13515584a13b90f4e6718b4882d2d3c465bf2a2ea69d52d58d",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

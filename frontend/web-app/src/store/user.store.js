@@ -2,15 +2,15 @@ import { ref } from "vue"
 import { defineStore } from 'pinia';
 import { useAuth0 } from '@auth0/auth0-vue';
 
-export const useUserStore = defineStore("useStore", () =>{
+export const useUserStore = defineStore("userStore", () =>{
 
 	
 	const auth0 = useAuth0();
 
-	const profile = ref(null);
+	const profile = ref({});
 	const isLogged = ref(false);
-	const isLoading = ref(null);
-	const lastSync = ref(null);
+	const isLoading = ref(true);
+	const lastSync = ref('');
 	
 
 	const init = async (init)=>{
@@ -18,14 +18,15 @@ export const useUserStore = defineStore("useStore", () =>{
 
 		profile.value = init.user;
 		isLogged.value = init.isAuthenticated;
-		isLoading.value = init.isLoading;
+		isLoading.value = false;
 		lastSync.value = new Date().toISOString();
+		console.log(init)
 	}
 
 	const clear = () =>{
-		profile.value = null;
+		profile.value = {};
 		isLogged.value = false;
-		lastSync.value = null;
+		lastSync.value = '';
 	}
 
 	const logout = () =>{

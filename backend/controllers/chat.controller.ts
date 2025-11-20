@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import chatService from '../services/chat.service';
 import teamService from '../services/team.service';
 import clubService from '../services/club.service';
-import type { ChatMessage } from '../database/generated/mongodb/client';
+import type { ChatMessage } from '../models/chat.model';
 
 /**
  * Busca o histórico de mensagens de uma sala de chat (clube ou time).
@@ -29,7 +29,8 @@ const createMessage = async (message: ChatMessage): Promise<ChatMessage> => {
 }
 
 const canUserJoinChatRoom = async (userId: string, clubId: number, teamId: number | null): Promise<boolean> => {
-    return teamId ? teamService.isUserInTeam(userId, teamId) : clubService.isUserInClub(userId, clubId);
+    const isAuthorized = teamId != null ? await teamService.isUserInTeam(userId, teamId) : await clubService.isUserInClub(userId, clubId);
+	return isAuthorized
 };
 
 export default {
