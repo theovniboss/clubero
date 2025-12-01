@@ -1,39 +1,40 @@
 <template>
-	<div class="chat-container">
-		<div class="chat-header">
-			<h3>Chat do Clube</h3>
-			<!-- Você pode adicionar o nome do clube dinamicamente aqui -->
+	<div class="absolute right-5 bottom-5 flex flex-col w-full max-w-[400px] min-w-[300px] border border-gray-300 rounded-lg overflow-hidden font-sans transition-all duration-300 shadow-md"
+		:class="isMinimized ? 'h-auto' : 'h-[500px]'">
+		<div class="p-2 bg-gray-100 border-b border-gray-300 flex justify-between items-center cursor-pointer hover:bg-gray-200 transition-colors"
+			@click="toggleMinimize">
+			<h3 class="text-base font-medium">Chat: {{ selectedClub.name }}</h3>
+			<button class="text-gray-600 hover:text-gray-800 focus:outline-none">
+				<font-awesome-icon :icon="isMinimized ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" />
+			</button>
 		</div>
-		<div class="messages-area" ref="messagesContainer">
-			<div
-				v-for="message in messages"
-				:key="message.id"
-				class="message-wrapper"
-				:class="message.userId === currentUser.id ? 'sent' : 'received'"
-			>
-				<div class="message">
-					<div class="message-sender" v-if="message.userId !== currentUser.id">
+		<div v-show="!isMinimized" class="flex-1 p-4 overflow-y-auto bg-gray-200 flex flex-col gap-3"
+			ref="messagesContainer">
+			<div v-for="message in messages" :key="message.id" class="flex max-w-[70%]"
+				:class="message.userId === currentUser.id ? 'self-end' : 'self-start'">
+				<div class="px-3 py-2 rounded-xl break-words"
+					:class="message.userId === currentUser.id ? 'bg-[#dcf8c6] rounded-br-sm' : 'bg-white rounded-bl-sm'">
+					<div class="text-xs font-bold text-gray-800 mb-1" v-if="message.userId !== currentUser.id">
 						{{ message.userName }}
 					</div>
-					<div class="message-content">
+					<div class="text-[0.95rem]">
 						{{ message.content }}
 					</div>
-					<div class="message-timestamp">
-						{{ new Date(message.createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) }}
+					<div class="text-[0.7rem] text-gray-500 text-right mt-1">
+						{{ new Date(message.createdAt).toLocaleTimeString('pt-BR', {
+							day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit'
+						}) }}
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="message-input-area">
-			<form @submit.prevent="sendMessage" class="message-form">
-				<input
-					type="text"
-					v-model="newMessage"
-					placeholder="Digite sua mensagem..."
-					class="message-input"
-					autocomplete="off"
-				/>
-				<button type="submit" class="send-button">Enviar</button>
+		<div v-show="!isMinimized" class="p-2 bg-gray-100 border-t border-gray-300">
+			<form @submit.prevent="sendMessage" class="flex gap-2">
+				<Input type="text" v-model="newMessage" placeholder="Digite sua mensagem..."
+					class="flex-1 p-3 rounded-full text-base" autocomplete="off" />
+				<Button type="submit" variant="primary">
+					<font-awesome-icon icon="fa-solid fa-paper-plane" />
+				</Button>
 			</form>
 		</div>
 	</div>
@@ -44,19 +45,28 @@
 import { ref, onMounted, onUnmounted, nextTick, computed, watch } from 'vue';
 import { useUserStore } from '../store/user.store';
 import { useClubStore } from '../store/club.store';
+import Input from './form/Input.vue';
+import Button from './elements/Button.vue';
 
 const clubStore = useClubStore();
 const userStore = useUserStore();
 
-const clubId = computed(()=> clubStore.selectedClub.id)
+const selectedClub = computed(() => clubStore.selectedClub)
 // Usuário atual obtido do seu store (Pinia)
 // O backend usa o 'sub' do token como 'userId'
 const currentUser = computed(() => {
-	return { 
-		id: userStore.profile.value?.sub, 
-		name: userStore.profile.value?.name 
+	return {
+		id: userStore.profile.value?.sub,
+		name: userStore.profile.value?.name
 	};
 });
+
+// Estado para controlar se o chat está minimizado
+const isMinimized = ref(true);
+
+const toggleMinimize = () => {
+	isMinimized.value = !isMinimized.value;
+};
 
 // Estado para armazenar as mensagens do chat
 const messages = ref([]);
@@ -72,10 +82,10 @@ let socket = null;
 
 // Função para rolar para a última mensagem
 const scrollToBottom = async () => {
-    await nextTick(); // Espera o DOM ser atualizado
-    if (messagesContainer.value) {
-        messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-    }
+	await nextTick(); // Espera o DOM ser atualizado
+	if (messagesContainer.value) {
+		messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
+	}
 };
 
 // Função para enviar uma nova mensagem
@@ -90,23 +100,22 @@ const sendMessage = async () => {
 };
 
 const connectWebSocket = () => {
-    // Garante que temos os dados necessários para conectar
-	if (!clubId.value || !currentUser.value.id || !currentUser.value.name) {
+	// Garante que temos os dados necessários para conectar
+	if (!selectedClub.value.id || !currentUser.value.id || !currentUser.value.name) {
 		console.log("Aguardando dados do clube e do usuário para conectar ao chat.");
 		return;
 	}
 
-    // Fecha conexão antiga se existir
-    if (socket) {
-        socket.close();
-    }
+	// Fecha conexão antiga se existir
+	if (socket) {
+		socket.close();
+	}
 
 	// O backend espera os parâmetros na URL
 	const params = new URLSearchParams({
-		clubId: clubId.value,		
+		clubId: selectedClub.value.id,
 		userId: currentUser.value.id,
 		userName: currentUser.value.name,
-		// teamId: null // Adicione se for usar chat de times
 	});
 
 	const socketUrl = `${import.meta.env.VITE_WEBSOCKET_URL}?${params.toString()}`;
@@ -114,11 +123,11 @@ const connectWebSocket = () => {
 	socket = new WebSocket(socketUrl);
 
 	socket.onopen = () => {
-		console.log(`[WS] Conectado ao chat do clube ${clubId.value}`);
-        // TODO: Implementar no backend uma forma de buscar o histórico ao conectar
-        // Ex: O cliente envia uma mensagem especial ou o servidor envia ao abrir.
-        // Por enquanto, apenas limpamos as mensagens antigas.
-        messages.value = [];
+		console.log(`[WS] Conectado ao chat do clube ${selectedClub.value.id}`);
+		// TODO: Implementar no backend uma forma de buscar o histórico ao conectar
+		// Ex: O cliente envia uma mensagem especial ou o servidor envia ao abrir.
+		// Por enquanto, apenas limpamos as mensagens antigas.
+		messages.value = [];
 	};
 
 	socket.onmessage = (event) => {
@@ -139,19 +148,19 @@ const connectWebSocket = () => {
 
 	socket.onerror = (error) => {
 		console.error("[WS] Erro na conexão:", error);
-        // Attempt to log more specific error details if they exist
-        if (error && error.message) {
-            console.error("[WS] Mensagem de erro detalhada:", error.message);
-        }
-        if (error && error.code) {
-            console.error("[WS] Código de erro:", error.code);
-        }
+		// Attempt to log more specific error details if they exist
+		if (error && error.message) {
+			console.error("[WS] Mensagem de erro detalhada:", error.message);
+		}
+		if (error && error.code) {
+			console.error("[WS] Código de erro:", error.code);
+		}
 	};
 };
 
 // Observa mudanças no clubId ou no usuário para reconectar ao WebSocket
-watch([() => clubId.value, () => currentUser.value], () => {
-    connectWebSocket();
+watch([() => selectedClub.value.id, () => currentUser.value], () => {
+	connectWebSocket();
 }, { immediate: true }); // `immediate: true` executa a função assim que o componente é montado
 
 onUnmounted(() => {
@@ -161,118 +170,3 @@ onUnmounted(() => {
 	}
 });
 </script>
-
-<style scoped>
-.chat-container {
-	display: flex;
-	flex-direction: column;
-	height: 500px; /* Altura de exemplo */
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	overflow: hidden;
-	font-family: sans-serif;
-}
-
-.chat-header {
-	padding: 1rem;
-	background-color: #f5f5f5;
-	border-bottom: 1px solid #ccc;
-	text-align: center;
-}
-
-.chat-header h3 {
-	margin: 0;
-	font-size: 1.2rem;
-}
-
-.messages-area {
-	flex-grow: 1;
-	padding: 1rem;
-	overflow-y: auto;
-	background-color: #e9e9e9;
-	display: flex;
-	flex-direction: column;
-	gap: 0.75rem;
-}
-
-.message-wrapper {
-	display: flex;
-	max-width: 70%;
-}
-
-.message-wrapper.sent {
-	align-self: flex-end;
-}
-
-.message-wrapper.received {
-	align-self: flex-start;
-}
-
-.message {
-	padding: 0.5rem 0.75rem;
-	border-radius: 12px;
-	word-wrap: break-word;
-}
-
-.sent .message {
-	background-color: #dcf8c6;
-	border-bottom-right-radius: 2px;
-}
-
-.received .message {
-	background-color: #ffffff;
-	border-bottom-left-radius: 2px;
-}
-
-.message-sender {
-	font-size: 0.8rem;
-	font-weight: bold;
-	color: #333;
-	margin-bottom: 0.25rem;
-}
-
-.message-content {
-	font-size: 0.95rem;
-}
-
-.message-timestamp {
-	font-size: 0.7rem;
-	color: #888;
-	text-align: right;
-	margin-top: 0.25rem;
-}
-
-.message-input-area {
-	padding: 0.5rem 1rem;
-	background-color: #f5f5f5;
-	border-top: 1px solid #ccc;
-}
-
-.message-form {
-	display: flex;
-	gap: 0.5rem;
-}
-
-.message-input {
-	flex-grow: 1;
-	padding: 0.75rem;
-	border: 1px solid #ccc;
-	border-radius: 20px;
-	font-size: 1rem;
-}
-
-.send-button {
-	padding: 0.75rem 1.5rem;
-	border: none;
-	background-color: #007bff;
-	color: white;
-	border-radius: 20px;
-	cursor: pointer;
-	font-size: 1rem;
-	font-weight: bold;
-}
-
-.send-button:hover {
-	background-color: #0056b3;
-}
-</style>

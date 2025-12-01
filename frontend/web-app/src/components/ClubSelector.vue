@@ -16,7 +16,7 @@
 					</span>
 				</p>
 				<font-awesome-icon icon="fa-solid fa-chevron-down fa-xl" class="ml-4"
-					:class="{'rotate-180': showAllClubs}" v-if="clubs.length > 0" />
+					:class="{ 'rotate-180': showAllClubs }" v-if="clubs.length > 0" />
 			</div>
 
 			<div class="flex flex-col absolute left-0 top-17  w-[300px] p-2 boxed   " v-if="showAllClubs">
@@ -42,47 +42,47 @@
 </template>
 
 <script setup>
-	import { onMounted, ref, computed} from 'vue';
-	import servClub from '../services/club.js'
-	import { useClubStore } from '../store/club.store.js';
+import { onMounted, ref, computed } from 'vue';
+import servClub from '../services/club.js'
+import { useClubStore } from '../store/club.store.js';
 
-	onMounted(()=>{
-		loadClubs();
+onMounted(() => {
+	loadClubs();
+});
+
+const clubsData = ref([]);
+const showAllClubs = ref(false);
+const selectedClub = computed(() => useClubStore().selectedClub);
+
+const clubs = computed(() => clubsData.value.filter(club => club.id !== selectedClub.value.id));
+
+
+const loadClubs = async () => {
+	await servClub.getClubs().then(response => {
+		clubsData.value = response.data;
+		if (!clubsData.value.find(club => club.id === selectedClub.value.id && club.name === selectedClub.value.name))
+			useClubStore().selectClub(clubs.value[0]);
+	}, error => {
+		console.error(error)
 	});
+}
 
-	const clubsData = ref([]);
-	const showAllClubs = ref(false);
-	const selectedClub = computed(() =>  useClubStore().selectedClub);
+const replaceImage = (e, name) => {
+	e.target.src = import.meta.env.VITE_AVATAR_PLACEHOLDER.replace(':seed', name);
+}
 
-	const clubs = computed(() => clubsData.value.filter(club => club.id !== selectedClub.value.id));
-	
-
-	const loadClubs = async () =>{
-		await servClub.getClubs().then(response=>{
-			clubsData.value = response.data;
-			if(selectedClub.value.id == null)
-				useClubStore().selectClub(clubs.value[0]);
-		}, error=>{
-			console.error(error)
-		});
-	}
-
-	const replaceImage = (e, name) =>{
-		e.target.src = import.meta.env.VITE_AVATAR_PLACEHOLDER.replace(':seed', name);
-	}
-
-	const toggleClubs = () =>{
-		showAllClubs.value = !showAllClubs.value;
-	}
-	const closeAllClubs = () =>{
-		showAllClubs.value = false;
-	}
+const toggleClubs = () => {
+	showAllClubs.value = !showAllClubs.value;
+}
+const closeAllClubs = () => {
+	showAllClubs.value = false;
+}
 
 
-	const selectClub = (club) =>{
-		useClubStore().selectClub(club);
-		showAllClubs.value = false;
-	}
+const selectClub = (club) => {
+	useClubStore().selectClub(club);
+	showAllClubs.value = false;
+}
 
 
 

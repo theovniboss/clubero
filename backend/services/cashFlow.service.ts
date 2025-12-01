@@ -1,80 +1,97 @@
-import { sqliteConn } from '../database/prisma'
-import type { CashFlow, CashFlowCategory } from '../database/generated/sqlite/client';
+import { sqliteConn } from "../database/prisma";
+import type {
+	CashFlow,
+	CashFlowCategory,
+} from "../database/generated/sqlite/client";
 
 const getCashFlowCategories = async (clubId?: number) => {
 	return await sqliteConn.cashFlowCategory.findMany({
 		where: {
-			OR: [
-				{clubId: clubId},
-				{clubId: null}
-			]
-		}
+			OR: [{ clubId: clubId }, { clubId: null }],
+		},
 	});
 };
 
 const createCashFlowCategory = async (category: CashFlowCategory) => {
-    return await sqliteConn.cashFlowCategory.create({
-        data: category
-    });
-}
-
-const updateCashFlowCategory = async (id: number, category: CashFlowCategory) => {
-    return await sqliteConn.cashFlowCategory.update({
+	return await sqliteConn.cashFlowCategory.create({
 		data: category,
-        where: {
-            id: id
-        },
-        
-    });
-}
+	});
+};
+
+const updateCashFlowCategory = async (
+	id: number,
+	category: CashFlowCategory
+) => {
+	return await sqliteConn.cashFlowCategory.update({
+		data: category,
+		where: {
+			id: id,
+		},
+	});
+};
 
 const deleteCashFlowCategory = async (id: number) => {
-    return await sqliteConn.cashFlowCategory.delete({
-        where: {
-            id: id
-        }
-    });
-}
+	return await sqliteConn.cashFlowCategory.delete({
+		where: {
+			id: id,
+		},
+	});
+};
 
 const getCashFlows = async (clubId: number) => {
-    return await sqliteConn.cashFlow.findMany({
-        where: { clubId: clubId }
-    });
+	const cashFlows = await sqliteConn.cashFlow.findMany({
+		where: { clubId: clubId },
+		include: {
+			category: true,
+			team: true,
+		},
+		orderBy: [{ occurredAt: "asc" }, { id: "asc" }],
+	});
+
+	let balance = 0;
+	return cashFlows.map((cf) => {
+		if (cf.category.type === "DEBIT") {
+			balance -= cf.amount;
+		} else {
+			balance += cf.amount;
+		}
+		return { ...cf, balance };
+	});
 };
 
 const getCashFlow = async (id: number) => {
-    return await sqliteConn.cashFlow.findUnique({
-        where: { id: id }
-    });
+	return await sqliteConn.cashFlow.findUnique({
+		where: { id: id },
+	});
 };
 
 const createCashFlow = async (cashFlow: CashFlow) => {
-    return await sqliteConn.cashFlow.create({
-        data: cashFlow
-    });
+	return await sqliteConn.cashFlow.create({
+		data: cashFlow,
+	});
 };
 
 const updateCashFlow = async (id: number, cashFlow: CashFlow) => {
-    return await sqliteConn.cashFlow.update({
-        data: cashFlow,
-        where: { id: id }
-    });
+	return await sqliteConn.cashFlow.update({
+		data: cashFlow,
+		where: { id: id },
+	});
 };
 
 const deleteCashFlow = async (id: number) => {
-    return await sqliteConn.cashFlow.delete({
-        where: { id: id }
-    });
+	return await sqliteConn.cashFlow.delete({
+		where: { id: id },
+	});
 };
 
 export default {
-    getCashFlowCategories,
-    createCashFlowCategory,
-    updateCashFlowCategory,
-    deleteCashFlowCategory,
-    getCashFlows,
-    getCashFlow,
-    createCashFlow,
-    updateCashFlow,
-    deleteCashFlow
-}
+	getCashFlowCategories,
+	createCashFlowCategory,
+	updateCashFlowCategory,
+	deleteCashFlowCategory,
+	getCashFlows,
+	getCashFlow,
+	createCashFlow,
+	updateCashFlow,
+	deleteCashFlow,
+};

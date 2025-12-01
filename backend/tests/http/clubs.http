@@ -1,23 +1,23 @@
-@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYzNTg3NjE5LCJleHAiOjE3NjM2NzQwMTksInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.uauFZZP9CWZq6qHCplyiMFziBnD4FQqlZLAG8CcgKXh-QExnAOjxRj99u6oWixuuzIA7J5wt8K9KVh8cY_btu1gNl0Z-HuElFUStwf47Xg2M7qjrrmQbY0RqknGPH7P7HpV5igOB4pajuzhrNSDB1nH_ARuwjtSgMQ7WQgtBy1yUSJc0zl4MW9VnHuZ3MUWlqZL3MSLSYqJM89S9IqXcXLDxkvBQ71NC9zEhQ2HCovtnWlM_e4_wC2XmwX-tfxqpsDFSCUXYZGB26H6jupAoktVOXkFtmD0k_epQE071MENzXfq3q3DzecImDq9O4EoAiYGzHyCnynT88LY23owADQ
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzY0MzM3NjQ3LCJleHAiOjE3NjQ0MjQwNDcsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.YgFaJvEGPDoM8EtrMWLwgLDJFa8oANtiwt7zE86ST0WqNBkopYDZAwr9Q3xKqcyuG93XxaNE6q7xeITM5iNKfHvo4hPSfnDHOvD1ZJ3L0RlX8rND6HIWkz8izCgjtXsOJiRs1ygYj3jCLdURDD3msIeaSzzswUo2oW0x8dOzDLpxdk9bA0WEjRI-1R6ydWGcnbVz7XOSFb2xXKHDfF0W3a2ZcOKUiwVqL0NMLXN9uxTTGjFqCUdriTRxpcBamGZZ77gCK7_54chIFqNIV5InwpGu9v-JadrZMfdjpsaQIcCAlUT4ofzzK3Bi7aCyOqfnKjT46Bw_oXCSA0zeDhnRoQ
 
 @baseUrl = http://localhost:3030/api
 
 
 ### Get all clubs
-GET http://localhost:3030/api/clubs/all
+GET {{baseUrl}}/clubs/all
 Authorization: Bearer {{ token }}
 
 ### Get all clubs
-GET http://localhost:3030/api/clubs 
+GET {{baseUrl}}/clubs 
 Authorization: Bearer {{ token }}
 
 ### Get user by ID
-GET http://localhost:3030/api/club/1 
+GET {{baseUrl}}/club/1 
 Authorization: Bearer {{ token }}
 
 
 ### Create a new Club
-POST http://localhost:3030/api/club
+POST {{baseUrl}}/club
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
@@ -33,7 +33,7 @@ Authorization: Bearer {{ token }}
 }
 
 ### Update user by ID
-PUT http://localhost:3030/api/club/1
+PUT {{baseUrl}}/club/1
 Authorization: Bearer {{ token }}
 Content-Type: application/json
 
@@ -50,6 +50,6 @@ Content-Type: application/json
 
 
 ### Delete user by ID
-DELETE http://localhost:3030/api/club/2
+DELETE {{baseUrl}}/club/2
 Authorization: Bearer {{ token }}
 

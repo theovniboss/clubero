@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Club {
-    id          Int       @id @default(autoincrement())
+    id          Int                @id @default(autoincrement())
     name        String
     description String?
     image       String?
@@ -18,11 +18,11 @@ model Club {
     state       String
     city        String
     founded     DateTime
-    active      Boolean   @default(false)
+    active      Boolean            @default(false)
     createdBy   String
-    createdAt   DateTime  @default(now())
+    createdAt   DateTime           @default(now())
     updatedBy   String?
-    updatedAt   DateTime? @updatedAt
+    updatedAt   DateTime?          @updatedAt
     teams       Team[]
     categories  CashFlowCategory[]
     cashFlows   CashFlow[]
@@ -53,7 +53,7 @@ model Team {
     club        Club       @relation(fields: [clubId], references: [id])
     sport       Sport      @relation(fields: [sportId], references: [id])
     teamUser    TeamUser[]
-    cashFlows   CashFlow[] 
+    cashFlows   CashFlow[]
     events      Event[]
 }
 
@@ -80,43 +80,43 @@ model CashFlowCategory {
 }
 
 model CashFlow {
-    id          Int           @id @default(autoincrement())
+    id          Int              @id @default(autoincrement())
     description String
     amount      Int
     occurredAt  DateTime
     clubId      Int
-    club        Club              @relation(fields: [clubId], references: [id])
+    club        Club             @relation(fields: [clubId], references: [id])
     teamId      Int?
-    team        Team?             @relation(fields: [teamId], references: [id])
+    team        Team?            @relation(fields: [teamId], references: [id])
     categoryId  Int
     category    CashFlowCategory @relation(fields: [categoryId], references: [id])
     createdBy   String
-    createdAt   DateTime          @default(now())
+    createdAt   DateTime         @default(now())
     updatedBy   String?
-    updatedAt   DateTime?         @updatedAt
+    updatedAt   DateTime?        @updatedAt
 }
 
 model Event {
-    id          Int       @id @default(autoincrement())
-    title       String
-    description String?
-    start       DateTime
-    end         DateTime
-    location    String?
-    type        EventType @default(OTHER)
-    createdBy   String
-    createdAt   DateTime  @default(now())
-    updatedBy   String?
-    updatedAt   DateTime? @updatedAt
-    recurrenceId      String?   // Common ID for all events in a series (e.g., a UUID)
-    recurrenceRule    String?   // Stores the recurrence rule (e.g., RRULE string from iCal)
+    id             Int       @id @default(autoincrement())
+    title          String
+    description    String?
+    start          DateTime
+    end            DateTime
+    location       String?
+    type           EventType @default(OTHER)
+    createdBy      String
+    createdAt      DateTime  @default(now())
+    updatedBy      String?
+    updatedAt      DateTime? @updatedAt
+    recurrenceId   String? // Common ID for all events in a series (e.g., a UUID)
+    recurrenceRule String? // Stores the recurrence rule (e.g., RRULE string from iCal)
 
-    clubId      Int
-    club        Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+    clubId Int
+    club   Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
 
     // Um evento pode ser de um time específico ou do clube em geral (teamId opcional)
-    teamId      Int?
-    team        Team?     @relation(fields: [teamId], references: [id], onDelete: SetNull)
+    teamId Int?
+    team   Team? @relation(fields: [teamId], references: [id], onDelete: SetNull)
 
     participants EventParticipant[]
 
@@ -125,17 +125,17 @@ model Event {
 }
 
 model EventParticipant {
-    eventId   Int
-    event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-    userId    String
-    status    EventConfirmationStatus @default(MAYBE)
-    checkedIn Boolean                 @default(false)
-	checkedInBy String?
-	checkedInAt DateTime?
-    createdAt DateTime                @default(now())
-	createdBy String
-    updatedAt DateTime                @updatedAt
-	updatedBy String?
+    eventId     Int
+    event       Event                   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    userId      String
+    status      EventConfirmationStatus @default(MAYBE)
+    checkedIn   Boolean                 @default(false)
+    checkedInBy String?
+    checkedInAt DateTime?
+    createdAt   DateTime                @default(now())
+    createdBy   String
+    updatedAt   DateTime                @updatedAt
+    updatedBy   String?
 
     @@id([eventId, userId])
 }
@@ -149,16 +149,16 @@ enum Gender {
 enum CashFlowType {
     CREDIT
     DEBIT
+    BALANCE
 }
 
 enum EventType {
-    TRAINING // Treino
-    MATCH    // Jogo/Partida
-    MEETING  // Reunião
-    SOCIAL   // Evento Social
-    OTHER    // Outro
+    TRAINING
+    MATCH
+    MEETING
+    SOCIAL
+    OTHER
 }
-
 
 enum EventConfirmationStatus {
     GOING
