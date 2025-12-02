@@ -1,5 +1,5 @@
-import prisma from "../database/prisma";
-import type { Team } from "../database/generated/prisma/client";
+import { sqliteConn } from '../database/prisma'
+import type { Team } from "../database/generated/sqlite/client";
 
 export interface TeamUpdateInput {
 	name?: string;
@@ -8,15 +8,15 @@ export interface TeamUpdateInput {
 }
 
 const getAllTeams = async () => {
-	return prisma.team.findMany();
+	return sqliteConn.team.findMany();
 };
 
 const getTeams = async (createdBy: string) => {
-	return prisma.team.findMany({ where: { createdBy } });
+	return sqliteConn.team.findMany({ where: { createdBy } });
 };
 
 const getTeam = async (id: number, includeUsers: boolean) => {
-	return prisma.team.findUnique({ 
+	return sqliteConn.team.findUnique({ 
 		where: { id },
 		include:{
 			teamUser: includeUsers
@@ -26,7 +26,7 @@ const getTeam = async (id: number, includeUsers: boolean) => {
 };
 
 const createTeam = async (team: Team) => {
-	return prisma.team.create({ 
+	return sqliteConn.team.create({ 
 		data: {
 			...team,
 			teamUser: {
@@ -41,16 +41,16 @@ const createTeam = async (team: Team) => {
 };
 
 const updateTeam = async (id: number, team: Team) => {
-	return prisma.team.update({ where: { id }, data: team });
+	return sqliteConn.team.update({ where: { id }, data: team });
 };
 
 const deleteTeam = async (id: number, createdByBy: string) => {
 
-	return prisma.team.delete({ where: { id: id, createdBy:createdByBy } });
+	return sqliteConn.team.delete({ where: { id: id, createdBy:createdByBy } });
 };
 
 const getTeamsByUser = async (userId: string) => {
-	return prisma.team.findMany({
+	return sqliteConn.team.findMany({
 		where:{
 			teamUser: {
 				some:{
@@ -64,7 +64,7 @@ const getTeamsByUser = async (userId: string) => {
 }
 
 const addTeamUser = async(id: number, userId: string) => {
-	return prisma.teamUser.create({
+	return sqliteConn.teamUser.create({
 		data: {
 			teamId: id,
 			userId: userId,
@@ -74,6 +74,15 @@ const addTeamUser = async(id: number, userId: string) => {
 
 }
 
+
+const isUserInTeam = async (userId: string, teamId: number): Promise<boolean> => {
+    const teamMembership = await sqliteConn.teamUser.findUnique({
+        where: { userId_teamId: { userId, teamId }, active: true },
+    });
+    return !!teamMembership;
+};
+
+
 export default {
 	getAllTeams,
 	getTeams,
@@ -82,5 +91,6 @@ export default {
 	updateTeam,
 	deleteTeam,
 	getTeamsByUser,
-	addTeamUser
+	addTeamUser,
+	isUserInTeam
 };

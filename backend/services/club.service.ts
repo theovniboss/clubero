@@ -1,22 +1,44 @@
-import prisma from '../database/prisma'
-import type { Club } from '../database/generated/prisma/client';
+import { sqliteConn } from '../database/prisma'
+import type { Club } from '../database/generated/sqlite/client';
 
 const getAllClubs = async () =>{
-	return await prisma.club.findMany();
+	return await sqliteConn.club.findMany();
 }
 
-const getClubs = async (createdBy:string) => {
-	return await prisma.club.findMany(
+const getClubs = async (userId:string) => {
+	return await sqliteConn.club.findMany(
 		{
 			where:{
-				createdBy: createdBy
+				OR: [ 
+				{createdBy: userId},
+				{
+					teams:{
+						some:{
+							teamUser:{
+								some:{
+									userId: userId,
+									active: true
+								}
+							}
+						}
+					}
+				}]
+			},
+			include: {
+				teams: {
+					where:{
+						teamUser: {
+							some: { userId: userId, active: true }
+						}
+					}
+				},
 			}
 		}
 	);
 }
 
 const getClub = async (id:number) => {
-	return await prisma.club.findUnique(
+	return await sqliteConn.club.findUnique(
 		{
 			where:{
 				id: id
@@ -26,13 +48,13 @@ const getClub = async (id:number) => {
 }
 
 const createClub = async (club: Club) => {
-	return await prisma.club.create({
+	return await sqliteConn.club.create({
 		data: club
 	});
 }
 
 const updateClub = async (id:number, club: Club) =>{
-	return await prisma.club.update({
+	return await sqliteConn.club.update({
 		data: club,
 		where:{
 			id:id
@@ -41,13 +63,41 @@ const updateClub = async (id:number, club: Club) =>{
 }
 
 const deleteClub = async (id:number, createdBy:string) =>{
-	return await prisma.club.delete({
+	return await sqliteConn.club.delete({
 		where:{
 			createdBy: createdBy,
 			id: id
 		}
 	});
 }
+
+const isUserInClub = async (userId: string, clubId: number): Promise<boolean> => {
+	const teamCount = await sqliteConn.club.findFirst(
+		{
+			where:{
+				AND: [
+					{id: clubId}
+				],
+				OR: [ 
+				{createdBy: userId},
+				{
+					teams:{
+						some:{
+							teamUser:{
+								some:{
+									userId: userId,
+									active: true
+								}
+							}
+						}
+					}
+				}]
+			},
+		}
+	);
+
+    return !!teamCount;
+};
 
 
 
@@ -57,5 +107,6 @@ export default {
 	getClub,
 	createClub,
 	updateClub,
-	deleteClub
+	deleteClub,
+	isUserInClub
 }

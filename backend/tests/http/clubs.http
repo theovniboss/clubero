@@ -1,36 +1,39 @@
-@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzYyNDM1MzM5LCJleHAiOjE3NjI1MjE3MzksInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImNyZWF0ZTpjbHViIiwicmVhZDpjbHViIiwidXBkYXRlOmNsdWIiXX0.QfXDipjhf26zu9dvqllJI2zDd-E7jpHlG1o7YL8WpHND5-8HLSGT8k83knJjuC3CylIRZ8j67cKCcsJDx2RwnSAguVDThgVllYAHSEzQ_4LZ06lk4nof5v-ZUEowJaGwQhuwPmMGgghk7SYhdPolpxdK03gc57a1Ybg2PgeiSZiv9-au1WITvGze579hzZMLzdIOZi8gcFoP8CXWFUlYYNCuCRwqmdUCi-GTLkEE0yron2fMUNcJQoLjMo40hbak_u7wOzz21Y6e5KbSh8TzrtqkAeu3rikZKnsQAyZQYMrUZUKWTw_9yg-Nu76YIkU77nsKhTTIbfMPZ2DpIGLRYg
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzY0MzM3NjQ3LCJleHAiOjE3NjQ0MjQwNDcsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.YgFaJvEGPDoM8EtrMWLwgLDJFa8oANtiwt7zE86ST0WqNBkopYDZAwr9Q3xKqcyuG93XxaNE6q7xeITM5iNKfHvo4hPSfnDHOvD1ZJ3L0RlX8rND6HIWkz8izCgjtXsOJiRs1ygYj3jCLdURDD3msIeaSzzswUo2oW0x8dOzDLpxdk9bA0WEjRI-1R6ydWGcnbVz7XOSFb2xXKHDfF0W3a2ZcOKUiwVqL0NMLXN9uxTTGjFqCUdriTRxpcBamGZZ77gCK7_54chIFqNIV5InwpGu9v-JadrZMfdjpsaQIcCAlUT4ofzzK3Bi7aCyOqfnKjT46Bw_oXCSA0zeDhnRoQ
+
+@baseUrl = http://localhost:3030/api
+
 
 ### Get all clubs
-GET http://localhost:3030/api/clubs/all
+GET {{baseUrl}}/clubs/all
 Authorization: Bearer {{ token }}
 
 ### Get all clubs
-GET http://localhost:3030/api/clubs 
+GET {{baseUrl}}/clubs 
 Authorization: Bearer {{ token }}
 
 ### Get user by ID
-GET http://localhost:3030/api/club/1 
+GET {{baseUrl}}/club/1 
 Authorization: Bearer {{ token }}
 
 
 ### Create a new Club
-POST http://localhost:3030/api/club
+POST {{baseUrl}}/club
 Content-Type: application/json
 Authorization: Bearer {{ token }}
 
 {
-    "name": "Clubero FC",
-    "description": "El mejor club del mundo",
-    "image": "https://clubero.com/logo.png",
-    "country": "Argentina",
-    "state": "Buenos Aires",
-    "city": "La Plata",
-    "founded": "1901-01-01T00:00:00Z",
+    "name": "Crimson Fox",
+    "description": "Melhor Clube de Flag Footbal de São Paulo",
+    "image": "",
+    "country": "Brasil",
+    "state": "SP",
+    "city": "São Paulo",
+    "founded": "2017-09-01T00:00:00Z",
     "active": true
 }
 
 ### Update user by ID
-PUT http://localhost:3030/api/club/1
+PUT {{baseUrl}}/club/1
 Authorization: Bearer {{ token }}
 Content-Type: application/json
 
@@ -47,6 +50,6 @@ Content-Type: application/json
 
 
 ### Delete user by ID
-DELETE http://localhost:3030/api/club/2
+DELETE {{baseUrl}}/club/2
 Authorization: Bearer {{ token }}
 

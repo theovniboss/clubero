@@ -4,15 +4,17 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "bun --watch server.ts",
-		"debug": "bun --inspect=localhost:6499/clubero server.ts"
+		"dev:api": "bun --watch server.ts",
+		"dev:chat": "bun --watch chat.server.ts",
+		"dev": "concurrently \"bun run dev:api\" \"bun run dev:chat\""
 	},
 	"devDependencies": {
 		"@types/auth0": "^3.3.11",
 		"@types/bun": "latest",
 		"@types/express": "^5.0.5",
-		"@prisma/client": "^6.18.0",
-		"@types/cors": "^2.8.19"
+		"@prisma/client": "^6.16.0",
+		"@types/cors": "^2.8.19",
+		"concurrently": "^8.2.2"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
@@ -23,6 +25,6 @@
 		"express": "^5.1.0",
 		"express-oauth2-jwt-bearer": "^1.7.1",
 		"jose": "^6.1.0",
-		"prisma": "^6.18.0"
+		"prisma": "^6.19.0"
 	}
 }

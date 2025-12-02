@@ -91,29 +91,32 @@ const inviteTeamUsers = async (request: Request, response: Response) => {
 		if(!users || !users.length) return response.status(400).json();
 		const usersCreated = [];
 
-
+		const userClientId = userUtils.getUserClientId(request);
 		for (let i = 0; i < users.length; i++) {
 			const user = users[i] as User;
+			const existUser = await userService.getUserByEmail(user.email);
+			console.log(existUser);
+			if (existUser[0]) {
+				const teamUser = await teamService.addTeamUser(teamId, existUser[0].user_id ?? '');
+				if(!teamUser) return response.status(404).json();
+
+				usersCreated.push(existUser[0]);
+				continue;
+			}
 			const created = await userService.createUser(user);
 			if(!created || !created.user_id || !created.email) return response.status(404).json();
 
 			const teamUser = await teamService.addTeamUser(teamId, created.user_id);
 			if(!teamUser) return response.status(404).json();
 
-			const invite = await userService.changePasswordUser(created.email);
+			const invite = await userService.changePasswordUser(created.email, userClientId);
 			if(!invite) return response.status(404).json();
 
 			usersCreated.push(created);
 		}
 
 		return response.status(200).json(usersCreated);
-
-
-
 }
-
-
-
 
 export default {
 	getAllTeams,
@@ -125,5 +128,4 @@ export default {
 	deleteTeam,
 	getTeamsByUser,
 	inviteTeamUsers
-	
 };

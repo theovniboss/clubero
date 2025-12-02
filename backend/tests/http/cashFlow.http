@@ -1,0 +1,75 @@
+@token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNGZ0dXdEFSUmVPVEpuZk1wMHd3ZCJ9.eyJpc3MiOiJodHRwczovL2NsdWJlcm8udXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDY4ZjI1Yjg4M2E1NjcwNWViYmM0MGI5YyIsImF1ZCI6WyJjbHViZXJvLWFwaSIsImh0dHBzOi8vY2x1YmVyby51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzY0MzM3NjQ3LCJleHAiOjE3NjQ0MjQwNDcsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiIydjNPcDdNMW9oZDJDU0xHaXkxd3YwUDdlRnpJc2JrWSIsInBlcm1pc3Npb25zIjpbImFkbWluIiwiY3JlYXRlOmNsdWIiLCJyZWFkOmNsdWIiLCJ1cGRhdGU6Y2x1YiJdfQ.YgFaJvEGPDoM8EtrMWLwgLDJFa8oANtiwt7zE86ST0WqNBkopYDZAwr9Q3xKqcyuG93XxaNE6q7xeITM5iNKfHvo4hPSfnDHOvD1ZJ3L0RlX8rND6HIWkz8izCgjtXsOJiRs1ygYj3jCLdURDD3msIeaSzzswUo2oW0x8dOzDLpxdk9bA0WEjRI-1R6ydWGcnbVz7XOSFb2xXKHDfF0W3a2ZcOKUiwVqL0NMLXN9uxTTGjFqCUdriTRxpcBamGZZ77gCK7_54chIFqNIV5InwpGu9v-JadrZMfdjpsaQIcCAlUT4ofzzK3Bi7aCyOqfnKjT46Bw_oXCSA0zeDhnRoQ
+
+
+@baseUrl = http://localhost:3030/api
+
+###
+# @name getCategories
+GET {{baseUrl}}/cashflow/categories/club/1
+Authorization: Bearer {{token}}
+
+###
+# @name createCategory
+POST {{baseUrl}}/cashflow/category
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Marketing",
+    "type": "DEBIT"
+}
+
+###
+# @name updateCategory
+PUT {{baseUrl}}/cashflow/category/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Saldo Inicial",
+    "type": "BALANCE"
+}
+
+###
+# @name deleteCategory
+DELETE {{baseUrl}}/cashflow/category/5
+Authorization: Bearer {{token}}
+
+###
+
+###
+# @name getCashFlows
+GET {{baseUrl}}/cashflow/club/1
+Authorization: Bearer {{token}}
+
+###
+# @name createCashFlow
+POST {{baseUrl}}/cashflow
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{"type":"CREDIT","categoryId":6,"teamId":1,"description":"Leonardo","amount":7000,"occurredAt":"2025-11-28T00:00:00.000Z","clubId":1}
+
+# {
+#     "description": "Saldo Inicial",
+#     "amount": -15050,
+#     "occurredAt": "2024-07-26T00:00:00Z",
+#     "clubId": 1,
+# 	"categoryId": 1
+# }
+
+###
+# @name updateCashFlow
+PUT {{baseUrl}}/cashflow/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "description": "Pagamento de conta de água",
+    "amount": 8000
+}
+
+###
+# @name deleteCashFlow
+DELETE {{baseUrl}}/cashflow/1
+Authorization: Bearer {{token}}
