@@ -4,6 +4,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
+		"build": "bun build ./index.ts  --outdir ./dist --target bun",
 		"dev:api": "bun --watch server.ts",
 		"dev:chat": "bun --watch chat.server.ts",
 		"dev": "concurrently \"bun run dev:api\" \"bun run dev:chat\""
